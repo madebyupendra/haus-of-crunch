@@ -64,6 +64,7 @@ export type Product = {
   _updatedAt: string;
   _rev: string;
   name?: string;
+  slug?: Slug;
   image?: {
     asset?: {
       _ref: string;
@@ -297,7 +298,7 @@ export type ALL_CATEGORIES_QUERYResult = Array<{
 
 // Source: ./sanity/lib/products/getAllProducts.ts
 // Variable: ALL_PRODUCTS_QUERY
-// Query: *[_type == "product"] | order(name asc)
+// Query: *[      _type == "product"    ] | order(name asc)
 export type ALL_PRODUCTS_QUERYResult = Array<{
   _id: string;
   _type: "product";
@@ -305,6 +306,7 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
   _updatedAt: string;
   _rev: string;
   name?: string;
+  slug?: Slug;
   image?: {
     asset?: {
       _ref: string;
@@ -359,11 +361,30 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
   stock?: number;
 }>;
 
+// Source: ./sanity/lib/sale/gteActiveSaleByCouponCode.ts
+// Variable: ACTIVE_SALE_BY_COUPON_QUERY
+// Query: *[      _type == "sale"      && isActive == true      && couponCode == $couponCode    ] | order(validFrom desc)[0]
+export type ACTIVE_SALE_BY_COUPON_QUERYResult = {
+  _id: string;
+  _type: "sale";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  description?: string;
+  discountAmount?: number;
+  couponCode?: string;
+  validFrom?: string;
+  validUntil?: string;
+  isActive?: boolean;
+} | null;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "\n    *[_type == \"category\"] | order(name asc)\n  ": ALL_CATEGORIES_QUERYResult;
-    "\n    *[_type == \"product\"] | order(name asc)\n  ": ALL_PRODUCTS_QUERYResult;
+    "\n    *[\n      _type == \"product\"\n    ] | order(name asc)\n  ": ALL_PRODUCTS_QUERYResult;
+    "\n    *[\n      _type == \"sale\"\n      && isActive == true\n      && couponCode == $couponCode\n    ] | order(validFrom desc)[0]\n  ": ACTIVE_SALE_BY_COUPON_QUERYResult;
   }
 }
