@@ -25,4 +25,4 @@ export const searchProductsByName = async (searchParam: string) => {
     console.error("Error fetching products by name:", error);
     return [];
   }
-};
+}; 
