@@ -9,9 +9,13 @@ import {
 import Link from "next/link";
 import Form from "next/form";
 import { PackageIcon, TrolleyIcon } from "@sanity/icons";
+import useBasketStore from "@/store/store";
 
 function Header() {
   const { user } = useUser();
+  const itemCount = useBasketStore(
+    (state) => state.items.reduce((total, item) => total + item.quantity, 0)
+  );
 
   return (
     <header className="flex flex-wrap items-center justify-between px-4 py-2">
@@ -44,9 +48,15 @@ function Header() {
             href="/basket"
             className="flex flex-1 items-center justify-center space-x-2 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 sm:flex-none sm:justify-start"
           >
-            <TrolleyIcon className="h-6 w-6" />
-            <span>My Basket</span>
-          </Link>
+            <TrolleyIcon className="w-6 h-6" />
+         <span
+          className=" -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs"
+        >
+          {itemCount}
+        </span>
+
+        <span>My Basket</span>
+          </Link> 
 
           {/* User Area */}
           <ClerkLoaded>
