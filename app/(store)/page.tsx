@@ -1,21 +1,20 @@
-import BlackFridayBanner from "@/components/BlackFridayBanner";
-import ProductsView from "@/components/ProductsView";
-import { Button } from "@/components/ui/button";
-import { getAllCategories } from "@/sanity/lib/products/getAllCategories";
-import { getAllProducts } from "@/sanity/lib/products/getAllProducts";
+import { getActiveHero } from "@/sanity/lib/hero/getActiveHero";
+import { getActiveHomeSections } from "@/sanity/lib/home/getActiveHomeSections";
+import { getFeaturedProducts } from "@/sanity/lib/products/getFeaturedProducts";
+import Hero from "@/components/Hero";
+import HomeSections from "@/components/HomeSections";
+import ProductCarousel from "@/components/ProductCarousel";
 
-export default async function Home() {
-  const products = await getAllProducts();  
-  const categories = await getAllCategories();
+export default async function HomePage() {
+  const hero = await getActiveHero();
+  const sections = await getActiveHomeSections();
+  const featured = await getFeaturedProducts();
 
   return (
-    <div>
-      <BlackFridayBanner />
-
-      <div className="flex flex-col items-center justify top min-h-screen p-4">
-        <ProductsView products={products} categories={categories} />
-      </div>
-    </div>
+    <main className="overflow-x-hidden">
+      <Hero hero={hero} />
+      <HomeSections sections={sections} />
+      {featured && <ProductCarousel featured={featured} />}
+    </main>
   );
 }
-  

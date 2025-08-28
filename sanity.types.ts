@@ -13,6 +13,72 @@
  */
 
 // Source: schema.json
+export type FeaturedProducts = {
+  _id: string;
+  _type: "featuredProducts";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  products?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "product";
+  }>;
+  isActive?: boolean;
+};
+
+export type HomeSection = {
+  _id: string;
+  _type: "homeSection";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  buttonText?: string;
+  buttonLink?: string;
+  isActive?: boolean;
+};
+
+export type Hero = {
+  _id: string;
+  _type: "hero";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  subtitle?: string;
+  backgroundImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  buttonText?: string;
+  buttonLink?: string;
+  isActive?: boolean;
+};
+
 export type Sale = {
   _id: string;
   _type: "sale";
@@ -280,8 +346,84 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = Sale | Order | Product | Category | BlockContent | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = FeaturedProducts | HomeSection | Hero | Sale | Order | Product | Category | BlockContent | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
+// Source: ./sanity/lib/hero/getActiveHero.ts
+// Variable: ACTIVE_HERO_QUERY
+// Query: *[_type == "hero" && isActive == true] | order(_createdAt desc)[0] {    _id,    _type,    title,    subtitle,    backgroundImage {      asset->,      hotspot,      crop,      _type    },    buttonText,    buttonLink,    isActive  }
+export type ACTIVE_HERO_QUERYResult = {
+  _id: string;
+  _type: "hero";
+  title: string | null;
+  subtitle: string | null;
+  backgroundImage: {
+    asset: {
+      _id: string;
+      _type: "sanity.imageAsset";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      originalFilename?: string;
+      label?: string;
+      title?: string;
+      description?: string;
+      altText?: string;
+      sha1hash?: string;
+      extension?: string;
+      mimeType?: string;
+      size?: number;
+      assetId?: string;
+      uploadId?: string;
+      path?: string;
+      url?: string;
+      metadata?: SanityImageMetadata;
+      source?: SanityAssetSourceData;
+    } | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    _type: "image";
+  } | null;
+  buttonText: string | null;
+  buttonLink: string | null;
+  isActive: boolean | null;
+} | null;
+
+// Source: ./sanity/lib/home/getActiveHomeSections.ts
+// Variable: ACTIVE_HOME_SECTIONS_QUERY
+// Query: *[_type == "homeSection" && isActive == true]   | order(_createdAt asc)[0..1] {    _id,    title,    image {      asset->,      hotspot,      crop    },    buttonText,    buttonLink  }
+export type ACTIVE_HOME_SECTIONS_QUERYResult = Array<{
+  _id: string;
+  title: string | null;
+  image: {
+    asset: {
+      _id: string;
+      _type: "sanity.imageAsset";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      originalFilename?: string;
+      label?: string;
+      title?: string;
+      description?: string;
+      altText?: string;
+      sha1hash?: string;
+      extension?: string;
+      mimeType?: string;
+      size?: number;
+      assetId?: string;
+      uploadId?: string;
+      path?: string;
+      url?: string;
+      metadata?: SanityImageMetadata;
+      source?: SanityAssetSourceData;
+    } | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+  } | null;
+  buttonText: string | null;
+  buttonLink: string | null;
+}>;
+
 // Source: ./sanity/lib/products/SearchProductsByName.ts
 // Variable: PRODUCT_SEARCH_QUERY
 // Query: *[_type == "product"      && name match $searchParam    ] | order(name asc)
@@ -426,6 +568,46 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
   stock?: number;
 }>;
 
+// Source: ./sanity/lib/products/getFeaturedProducts.ts
+// Variable: FEATURED_PRODUCTS_QUERY
+// Query: *[_type == "featuredProducts" && isActive == true][0]{    _id,    title,    products[]->{      _id,      name,      price,      slug,      image {        asset->,        hotspot,        crop      }    }  }
+export type FEATURED_PRODUCTS_QUERYResult = {
+  _id: string;
+  title: string | null;
+  products: Array<{
+    _id: string;
+    name: string | null;
+    price: number | null;
+    slug: Slug | null;
+    image: {
+      asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash?: string;
+        extension?: string;
+        mimeType?: string;
+        size?: number;
+        assetId?: string;
+        uploadId?: string;
+        path?: string;
+        url?: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
+      } | null;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+    } | null;
+  }> | null;
+} | null;
+
 // Source: ./sanity/lib/products/getProductBySlug.ts
 // Variable: PRODUCT_BY_ID_QUERY
 // Query: *[_type == "product" && slug.current == $slug]    | order(name asc) [0]
@@ -513,9 +695,12 @@ export type ACTIVE_SALE_BY_COUPON_QUERYResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
+    "\n  *[_type == \"hero\" && isActive == true] | order(_createdAt desc)[0] {\n    _id,\n    _type,\n    title,\n    subtitle,\n    backgroundImage {\n      asset->,\n      hotspot,\n      crop,\n      _type\n    },\n    buttonText,\n    buttonLink,\n    isActive\n  }\n": ACTIVE_HERO_QUERYResult;
+    "\n  *[_type == \"homeSection\" && isActive == true] \n  | order(_createdAt asc)[0..1] {\n    _id,\n    title,\n    image {\n      asset->,\n      hotspot,\n      crop\n    },\n    buttonText,\n    buttonLink\n  }\n": ACTIVE_HOME_SECTIONS_QUERYResult;
     "\n    *[_type == \"product\"\n      && name match $searchParam\n    ] | order(name asc)\n  ": PRODUCT_SEARCH_QUERYResult;
     "\n    *[_type == \"category\"] | order(name asc)\n  ": ALL_CATEGORIES_QUERYResult;
     "\n    *[\n      _type == \"product\"\n    ] | order(name asc)\n  ": ALL_PRODUCTS_QUERYResult;
+    "\n  *[_type == \"featuredProducts\" && isActive == true][0]{\n    _id,\n    title,\n    products[]->{\n      _id,\n      name,\n      price,\n      slug,\n      image {\n        asset->,\n        hotspot,\n        crop\n      }\n    }\n  }\n": FEATURED_PRODUCTS_QUERYResult;
     "\n    *[_type == \"product\" && slug.current == $slug]\n    | order(name asc) [0]\n  ": PRODUCT_BY_ID_QUERYResult;
     "\n    *[\n      _type == \"sale\"\n      && isActive == true\n      && couponCode == $couponCode\n    ] | order(validFrom desc)[0]\n  ": ACTIVE_SALE_BY_COUPON_QUERYResult;
   }

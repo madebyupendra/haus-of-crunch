@@ -17,6 +17,9 @@ export default function RootLayout({
   return (
     <ClerkProvider dynamic>
     <html lang="en">
+      <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" />
+      </head>
       <body>
         <main>
           <Header />
