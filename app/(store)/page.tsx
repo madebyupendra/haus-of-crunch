@@ -1,19 +1,20 @@
 import BlackFridayBanner from "@/components/BlackFridayBanner";
-import ProductsView from "@/components/ProductsView";
 import { Button } from "@/components/ui/button";
-import { getAllCategories } from "@/sanity/lib/products/getAllCategories";
-import { getAllProducts } from "@/sanity/lib/products/getAllProducts";
+import Link from "next/link";
 
 export default async function Home() {
-  const products = await getAllProducts();  
-  const categories = await getAllCategories();
-
   return (
     <div>
       <BlackFridayBanner />
 
-      <div className="flex flex-col items-center justify top min-h-screen p-4">
-        <ProductsView products={products} categories={categories} />
+      <div className="flex flex-col items-center justify-center min-h-[60vh] p-8 text-center space-y-4">
+        <h1 className="text-3xl font-bold">Welcome to Shopr</h1>
+        <p className="text-gray-600">Browse all our latest products in the Shop.</p>
+        <Link href="/shop">
+          <Button>
+            Go to Shop
+          </Button>
+        </Link>
       </div>
     </div>
   );
