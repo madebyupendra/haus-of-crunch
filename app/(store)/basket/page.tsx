@@ -5,6 +5,8 @@ import { imageUrl } from "@/lib/ImageUrl";
 import useBasketStore from "@/store/store";
 import { SignInButton, useAuth, useUser } from "@clerk/nextjs";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -23,6 +25,9 @@ function BasketPage() {
   const { isSignedIn } = useAuth();
   const { user } = useUser();
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const currentUrl = `${pathname || "/"}${searchParams?.toString() ? `?${searchParams.toString()}` : ""}`;
 
   const [isClient, setIsClient] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -128,12 +133,12 @@ const handleCheckout = async () => {
   >
     {isLoading ? "Processing..." : "Checkout"}
   </button>
-) : (
-  <SignInButton mode="modal">
+            ) : (
+  <Link href={`/sign-in?returnTo=${encodeURIComponent(currentUrl)}`}>
     <button className="mt-4 w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
       Sign in to Checkout
     </button>
-  </SignInButton>
+  </Link>
 )}
 
 

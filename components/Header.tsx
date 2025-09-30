@@ -7,11 +7,13 @@ import {
   useUser,
 } from "@clerk/nextjs";
 import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
 import Form from "next/form";
 import { PackageIcon, TrolleyIcon } from "@sanity/icons";
-import { SearchIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { SearchIcon, User as UserIcon } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { gsap } from "gsap";
 import Image from "next/image";
 import { client } from "@/sanity/lib/client";
 import { imageUrl } from "@/lib/ImageUrl";
@@ -23,6 +25,11 @@ function Header() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [isSearching, setIsSearching] = useState(false);
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const currentUrl = `${pathname || "/"}${searchParams?.toString() ? `?${searchParams.toString()}` : ""}`;
+  const searchTriggerRef = useRef<HTMLButtonElement | null>(null);
+  const searchPanelRef = useRef<HTMLDivElement | null>(null);
   const itemCount = useBasketStore(
     (state) => state.items.reduce((total, item) => total + item.quantity, 0)
   );
@@ -70,57 +77,95 @@ function Header() {
     };
   }, [searchQuery, isSearchOpen]);
 
+  // Close and reset search on route changes (pathname or query changes)
+  useEffect(() => {
+    setIsSearchOpen(false);
+    setSearchQuery("");
+    setSearchResults([]);
+    setIsSearching(false);
+  }, [pathname, searchParams]);
+
+  // Close search when clicking outside the panel/trigger
+  useEffect(() => {
+    if (!isSearchOpen) return;
+
+    function handlePointerDown(e: MouseEvent) {
+      const target = e.target as Node | null;
+      const inPanel = !!searchPanelRef.current && searchPanelRef.current.contains(target as Node);
+      const inTrigger = !!searchTriggerRef.current && searchTriggerRef.current.contains(target as Node);
+      if (!inPanel && !inTrigger) {
+        setIsSearchOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handlePointerDown);
+    return () => document.removeEventListener("mousedown", handlePointerDown);
+  }, [isSearchOpen]);
+
+  // Use GSAP for expanding open animation with slight acceleration
+  useEffect(() => {
+    if (!isSearchOpen) return;
+    const panel = searchPanelRef.current;
+    if (!panel) return;
+    gsap.set(panel, { scaleY: 0, transformOrigin: "top" });
+    gsap.to(panel, { scaleY: 1, duration: 0.10, ease: "power2.in" });
+  }, [isSearchOpen]);
+
   return (
     <header className="flex flex-wrap items-center justify-between px-4 py-2 relative">
-      <div className="flex w-full flex-wrap items-center justify-between">
-        {/* Logo */}
-        <Link
-          href="/"
-          className="mx-auto text-2xl font-bold text-blue-500 cursor-pointer hover:opacity-50 sm:mx-0"
-        >
-          Shopr
-        </Link>
-
-        {/* Search Icon Trigger */}
-        <button
-          type="button"
-          aria-label="Open search"
-          onClick={() => setIsSearchOpen(true)}
-          className="ml-auto inline-flex items-center justify-center rounded p-2 text-gray-700 hover:bg-gray-100 sm:ml-auto"
-        >
-          <SearchIcon className="w-5 h-5" />
-        </button>
-
-        {/* Basket + User Section */}
-        <div className="mt-4 flex flex-1 items-center space-x-4 sm:mt-0 sm:flex-none">
-          {/* Shop Link */}
+      <div className="grid w-full grid-cols-3 items-center">
+        {/* Left: Shop link */}
+        <div className="justify-self-start">
           <Link
             href="/shop"
             className="hidden sm:inline-flex items-center justify-center rounded px-4 py-2 font-medium text-blue-600 hover:underline"
           >
             Shop
           </Link>
-          {/* Basket */}
+        </div>
+
+        {/* Center: Logo */}
+        <div className="justify-self-center">
           <Link
-            href="/basket"
-            className="flex flex-1 items-center justify-center space-x-2 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 sm:flex-none sm:justify-start"
+            href="/"
+            className="text-2xl font-bold text-blue-500 cursor-pointer hover:opacity-50"
           >
-            <TrolleyIcon className="w-6 h-6" />
-         <span
-          className=" -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs"
-        >
-          {itemCount}
-        </span>
+            Shopr
+          </Link>
+        </div>
 
-        <span>My Basket</span>
-          </Link> 
+        {/* Right: Search + Basket + User */}
+        <div className="flex items-center justify-end space-x-4 justify-self-end">
+        <button
+            type="button"
+            aria-label="Open search"
+          onClick={() => setIsSearchOpen(true)}
+          ref={searchTriggerRef}
+            className="inline-flex items-center justify-center rounded p-2 text-gray-700 hover:bg-gray-100"
+          >
+            <SearchIcon className="w-5 h-5" />
+          </button>
 
-          {/* User Area */}
+          <div className="relative">
+            <Link
+              href="/basket"
+              aria-label="Open basket"
+              className="inline-flex items-center justify-center rounded p-2 text-gray-700 hover:bg-gray-100"
+            >
+              <TrolleyIcon className="w-5 h-5" />
+            </Link>
+            {itemCount > 0 && (
+              <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                {itemCount}
+              </span>
+            )}
+          </div>
+
           <ClerkLoaded>
             {user && (
               <Link
                 href="/order"
-                className="flex flex-1 items-center justify-center space-x-2 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 sm:flex-none sm:justify-start"
+                className="hidden sm:inline-flex items-center justify-center space-x-2 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
               >
                 <PackageIcon className="h-6 w-6" />
                 <span>My Orders</span>
@@ -136,7 +181,13 @@ function Header() {
                 </div>
               </div>
             ) : (
-              <SignInButton mode="modal" />
+              <Link
+                href={`/sign-in?returnTo=${encodeURIComponent(currentUrl)}`}
+                aria-label="Sign in"
+                className="inline-flex items-center justify-center rounded p-2 text-gray-700 hover:bg-gray-100"
+              >
+                <UserIcon className="w-5 h-5" />
+              </Link>
             )}
           </ClerkLoaded>
         </div>
@@ -146,13 +197,20 @@ function Header() {
         {isSearchOpen && (
           <motion.div
             key="search-overlay"
-            initial={{ y: -20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -20, opacity: 0 }}
+            initial={{}}
+            animate={{}}
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="absolute left-0 right-0 top-full z-50 bg-white flex flex-col shadow-lg overflow-hidden h-screen md:h-[70vh]"
+            className="absolute left-0 right-0 top-full z-50 bg-white flex flex-col overflow-hidden h-screen md:h-[70vh] origin-top"
+            ref={searchPanelRef}
           >
             <div className="p-4 flex-1 overflow-auto">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.15, delay: 0.25 }}
+              >
               <Form action="/search" className="w-full">
                 <div className="flex w-full gap-2">
                   <input
@@ -166,6 +224,7 @@ function Header() {
                   />
                 </div>
               </Form>
+              </motion.div>
               <div className="mt-4">
                 {isSearching && (
                   <p className="text-sm text-gray-500">Searching…</p>
