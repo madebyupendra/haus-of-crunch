@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import ProductThumb from "./ProductThumb";
+import ProductCard from "./ProductCard";
 import { Product } from "@/sanity.types";
 
 function ProductGrid({ products }: { products: Product[] }) {
@@ -19,7 +19,7 @@ function ProductGrid({ products }: { products: Product[] }) {
             className="flex justify-center" 
             >
 
-        <ProductThumb key={product._id} product={product} />
+        <ProductCard key={product._id} product={product} />
         </motion.div>
         </AnimatePresence>
         );
