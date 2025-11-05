@@ -1,0 +1,69 @@
+/* =====================================
+   🛒 PRODUCT CARD — Haus of Crunch
+   ===================================== */
+
+   .hoc-product-card {
+    list-style: none;
+  }
+  
+  .hoc-product-card__inner {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--hoc-bg-product);
+    border: 1px solid var(--hoc-border-default);
+    border-radius: var(--hoc-radius-lg);
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  
+  .hoc-product-card__inner:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  }
+  
+  .hoc-product-card__image-wrapper {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    background-color: var(--hoc-bg-secondary);
+  }
+  
+  .hoc-product-card__image-link img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .hoc-product-card__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--hoc-space-sm);
+    padding: var(--hoc-space-md);
+    text-align: center;
+  }
+  
+  .hoc-product-card__title {
+    font-size: var(--hoc-font-size-md);
+    color: var(--hoc-text-default);
+    font-weight: var(--hoc-font-weight-medium);
+    line-height: 1.3;
+  }
+  
+  .hoc-product-card__title a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .hoc-product-card__price {
+    font-weight: var(--hoc-font-weight-semibold);
+    color: var(--hoc-text-default);
+  }
+  
+  .hoc-product-card__actions {
+    margin-top: var(--hoc-space-sm);
+  }
+  
+  /* Integrate your button styling */
+  .hoc-product-card .button {
+    @apply hoc-btn hoc-btn--primary hoc-btn--sm;
+  }
+  

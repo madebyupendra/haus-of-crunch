@@ -20,6 +20,8 @@ function hoc_enqueue_assets() {
     wp_enqueue_style( 'hoc-button', $theme_dir . '/assets/css/components/button.css', array(), null );
     wp_enqueue_style( 'hoc-container', $theme_dir . '/assets/css/components/container.css', array(), null );
     wp_enqueue_style( 'hoc-section', $theme_dir . '/assets/css/components/section.css', array(), null );
+    wp_enqueue_style( 'hoc-shop', get_template_directory_uri() . '/assets/css/components/shop.css', [], null );
+    wp_enqueue_style( 'hoc-product-card', get_template_directory_uri() . '/assets/css/components/product-card.css', [], null );
 
     // Main theme stylesheet (optional - you can leave blank or add future overrides)
     wp_enqueue_style( 'hoc-style', get_stylesheet_uri(), array('hoc-base'), '0.1' );

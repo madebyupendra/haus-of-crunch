@@ -1,0 +1,21 @@
+/* =====================================
+   🛒 SHOP PAGE — Haus of Crunch
+   ===================================== */
+
+   .woocommerce-shop {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--hoc-space-xl);
+    padding-block: var(--hoc-space-2xl);
+  }
+  
+  .woocommerce-shop .products {
+    display: contents; /* Let WooCommerce's product loop items inherit the grid */
+  }
+  
+  .woocommerce-shop .woocommerce-pagination {
+    grid-column: 1 / -1;
+    margin-top: var(--hoc-space-2xl);
+    text-align: center;
+  }
+  
