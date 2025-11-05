@@ -1,0 +1,125 @@
+/* =====================================
+   🧃 SINGLE PRODUCT — Haus of Crunch
+   ===================================== */
+
+   .hoc-single-product {
+    background-color: var(--hoc-bg-default);
+    color: var(--hoc-text-default);
+    padding: var(--hoc-space-xl) 0;
+  }
+  
+  .hoc-single-product__section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--hoc-space-lg);
+  }
+  
+  .product {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--hoc-space-xl);
+  }
+  
+  @media (max-width: var(--hoc-breakpoint-lg)) {
+    .product {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  /* Product Gallery */
+  .woocommerce-product-gallery {
+    position: relative;
+    border-radius: var(--hoc-radius-lg);
+    overflow: hidden;
+  }
+  
+  .woocommerce-product-gallery img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  /* Product Summary */
+  .summary {
+    display: flex;
+    flex-direction: column;
+    gap: var(--hoc-space-md);
+  }
+  
+  .summary .product_title {
+    font-size: var(--hoc-font-size-xl);
+    font-weight: var(--hoc-font-weight-bold);
+    color: var(--hoc-text-default);
+  }
+  
+  .price {
+    font-size: var(--hoc-font-size-lg);
+    color: var(--hoc-text-default);
+    font-weight: var(--hoc-font-weight-semibold);
+  }
+  
+  .woocommerce-product-details__short-description {
+    font-size: var(--hoc-font-size-md);
+    color: var(--hoc-text-secondary);
+    line-height: 1.6;
+  }
+  
+  /* Add to Cart */
+  .cart {
+    display: flex;
+    align-items: center;
+    gap: var(--hoc-space-md);
+    margin-top: var(--hoc-space-md);
+  }
+  
+  .single_add_to_cart_button {
+    background-color: var(--hoc-btn-primary);
+    color: var(--hoc-text-on-primary);
+    border-radius: var(--hoc-radius-md);
+    padding: var(--hoc-space-sm) var(--hoc-space-lg);
+    font-weight: var(--hoc-font-weight-semibold);
+    transition: background-color 0.25s ease;
+  }
+  
+  .single_add_to_cart_button:hover {
+    background-color: var(--hoc-btn-primary-hover);
+  }
+  
+  /* Tabs (Description, Reviews, etc.) */
+  .woocommerce-tabs {
+    margin-top: var(--hoc-space-2xl);
+    border-top: 1px solid var(--hoc-border-default);
+    padding-top: var(--hoc-space-lg);
+  }
+  
+  .woocommerce-tabs .wc-tabs {
+    display: flex;
+    gap: var(--hoc-space-md);
+    border-bottom: 1px solid var(--hoc-border-default);
+  }
+  
+  .woocommerce-tabs .wc-tabs li {
+    list-style: none;
+  }
+  
+  .woocommerce-tabs .wc-tabs a {
+    text-decoration: none;
+    color: var(--hoc-text-secondary);
+    font-weight: var(--hoc-font-weight-medium);
+    padding-bottom: var(--hoc-space-xs);
+    transition: color 0.25s ease;
+  }
+  
+  .woocommerce-tabs .wc-tabs a:hover,
+  .woocommerce-tabs .wc-tabs .active a {
+    color: var(--hoc-text-default);
+    border-bottom: 2px solid var(--hoc-text-default);
+  }
+  
+  .woocommerce-Tabs-panel {
+    padding-top: var(--hoc-space-md);
+    font-size: var(--hoc-font-size-md);
+    line-height: 1.6;
+    color: var(--hoc-text-default);
+  }
+  
