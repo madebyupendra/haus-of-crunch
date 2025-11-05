@@ -1,0 +1,81 @@
+/* =====================================
+   🧩 BUTTON COMPONENT — Haus of Crunch
+   ===================================== */
+
+   .hoc-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    font-family: var(--hoc-font-sans);
+    font-weight: var(--hoc-font-weight-medium);
+    border-radius: var(--hoc-radius-md);
+    transition: all 0.2s ease;
+    text-align: center;
+    text-decoration: none;
+  }
+  
+  /* ---------- SIZES ---------- */
+  .hoc-btn--sm {
+    font-size: var(--hoc-font-size-sm);
+    padding: var(--hoc-space-xs) var(--hoc-space-sm);
+  }
+  
+  .hoc-btn--md {
+    font-size: var(--hoc-font-size-base);
+    padding: var(--hoc-space-sm) var(--hoc-space-md);
+  }
+  
+  .hoc-btn--lg {
+    font-size: var(--hoc-font-size-md);
+    padding: var(--hoc-space-md) var(--hoc-space-lg);
+  }
+  
+  /* ---------- VARIANTS ---------- */
+  .hoc-btn--primary {
+    background-color: var(--hoc-bg-button-primary);
+    color: var(--hoc-text-on-primary);
+  }
+  
+  .hoc-btn--primary:hover {
+    background-color: var(--hoc-bg-button-hover);
+  }
+  
+  .hoc-btn--primary:active {
+    background-color: var(--hoc-bg-button-active);
+  }
+  
+  .hoc-btn--secondary {
+    background-color: var(--hoc-bg-secondary);
+    color: var(--hoc-text-default);
+    border: 1px solid var(--hoc-border-default);
+  }
+  
+  .hoc-btn--secondary:hover {
+    background-color: var(--hoc-bg-product);
+  }
+  
+  .hoc-btn--ghost {
+    background: transparent;
+    border: 1px solid var(--hoc-border-default);
+    color: var(--hoc-text-default);
+  }
+  
+  .hoc-btn--ghost:hover {
+    border-color: var(--hoc-border-hover);
+  }
+  
+  /* ---------- DISABLED ---------- */
+  .hoc-btn[disabled],
+  .hoc-btn[aria-disabled="true"] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  /* ---------- ACCESSIBILITY ---------- */
+  .hoc-btn:focus {
+    outline: 2px solid var(--hoc-bg-button-hover);
+    outline-offset: 2px;
+  }
+  

@@ -1,0 +1,11 @@
+/* =====================================
+   CONTAINER COMPONENT — Haus of Crunch
+   ===================================== */
+
+   .hoc-container {
+    width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-inline: var(--hoc-space-md);
+  }
+  

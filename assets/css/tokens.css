@@ -1,0 +1,114 @@
+:root {
+	/* ============================
+	   COLOR TOKENS — Haus of Crunch
+	   ============================ */
+  
+	/* ---------- TEXT COLORS ---------- */
+	--hoc-text-primary-on-button: #ffffff;
+	--hoc-text-disabled: #adadad;       /* gray-30 */
+	--hoc-text-secondary: #757575;      /* gray-50 */
+	--hoc-text-default: #111111;        /* gray-90 */
+  
+	/* ---------- BACKGROUND COLORS ---------- */
+	--hoc-bg-default: #ffffff;
+	--hoc-bg-product: #f7f7f7;          /* gray-3 */
+	--hoc-bg-secondary: #f0f0f0;        /* gray-5 */
+  
+	/* Buttons */
+	--hoc-bg-button-primary: #111111;          /* gray-90 */
+	--hoc-bg-button-primary-hover: #262626;    /* gray-80 */
+	--hoc-bg-button-primary-active: #454545;   /* gray-70 */
+  
+	/* Overlays */
+	--hoc-bg-overlay-modal: rgba(214, 214, 214, 0.3); /* gray-50 30% opacity */
+  
+	/* Image overlay gradient */
+	--hoc-bg-overlay-gradient: linear-gradient(
+	  to bottom,
+	  hsla(0, 0%, 0%, 0) 0%,
+	  hsla(0, 0%, 0%, 0.008) 7.8%,
+	  hsla(0, 0%, 0%, 0.032) 14.7%,
+	  hsla(0, 0%, 0%, 0.068) 20.8%,
+	  hsla(0, 0%, 0%, 0.114) 26.2%,
+	  hsla(0, 0%, 0%, 0.169) 31.3%,
+	  hsla(0, 0%, 0%, 0.229) 36.1%,
+	  hsla(0, 0%, 0%, 0.293) 40.8%,
+	  hsla(0, 0%, 0%, 0.357) 45.7%,
+	  hsla(0, 0%, 0%, 0.421) 51%,
+	  hsla(0, 0%, 0%, 0.481) 56.7%,
+	  hsla(0, 0%, 0%, 0.536) 63.2%,
+	  hsla(0, 0%, 0%, 0.582) 70.6%,
+	  hsla(0, 0%, 0%, 0.618) 79.1%,
+	  hsla(0, 0%, 0%, 0.642) 88.8%,
+	  hsla(0, 0%, 0%, 0.65) 100%
+	);
+  
+	/* ---------- BORDER COLORS ---------- */
+	--hoc-border-inverted: #ffffff;
+	--hoc-border-divider: #e6e6e6;             /* gray-10 */
+	--hoc-border-tertiary-hover: #adadad;      /* gray-30 */
+	--hoc-border-divider-dark-bg: #454545;     /* gray-70 */
+	--hoc-border-product-button: #111111;      /* gray-90 */
+  
+	/* ---------- SEMANTIC COLORS ---------- */
+	--hoc-semantic-warning: #ffb200;
+	--hoc-semantic-positive: #00874e;
+	--hoc-semantic-negative: #e50000;
+	--hoc-semantic-info: #0063e1;
+  
+	/* Optional: subtle background/hover states if desired */
+	--hoc-semantic-warning-bg: color-mix(in srgb, var(--hoc-semantic-warning) 10%, white);
+	--hoc-semantic-positive-bg: color-mix(in srgb, var(--hoc-semantic-positive) 10%, white);
+	--hoc-semantic-negative-bg: color-mix(in srgb, var(--hoc-semantic-negative) 10%, white);
+	--hoc-semantic-info-bg: color-mix(in srgb, var(--hoc-semantic-info) 10%, white);
+
+
+	/* ============================
+	   CORE SYSTEM TOKENS — Haus of Crunch
+	   ============================ */
+
+	   /* Simple modular scale (4px baseline) */
+:root {
+	--hoc-space-3xs: 0.125rem; /* 2px */
+	--hoc-space-2xs: 0.25rem;  /* 4px */
+	--hoc-space-xs: 0.5rem;    /* 8px */
+	--hoc-space-sm: 0.75rem;   /* 12px */
+	--hoc-space-md: 1rem;      /* 16px */
+	--hoc-space-lg: 1.5rem;    /* 24px */
+	--hoc-space-xl: 2rem;      /* 32px */
+	--hoc-space-2xl: 3rem;     /* 48px */
+	--hoc-space-3xl: 4rem;     /* 64px */
+	--hoc-space-4xl: 6rem;     /* 96px */
+  }
+  
+  /* ---------- BORDER RADIUS ---------- */
+  /* Scales for rounding corners on UI elements */
+  :root {
+	--hoc-radius-none: 0;
+	--hoc-radius-sm: 2px;
+	--hoc-radius-md: 6px;
+	--hoc-radius-lg: 12px;
+	--hoc-radius-xl: 24px;
+	--hoc-radius-round: 9999px; /* for pills, round buttons, etc. */
+  }
+  
+  /* ---------- ELEVATION / SHADOWS ---------- */
+  /* Clean, subtle shadows that fit modern UI depth */
+  :root {
+	--hoc-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+	--hoc-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06);
+	--hoc-shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08);
+	--hoc-shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.12);
+	--hoc-shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.16);
+  }
+  
+  /* ---------- BREAKPOINTS ---------- */
+  /* Matches typical modern responsive breakpoints */
+  :root {
+	--hoc-breakpoint-md: 768px;   /* Tablet */
+    --hoc-breakpoint-lg: 1024px;  /* Desktop */
+    --hoc-breakpoint-xl: 1280px;  /* Optional large desktop */
+  }
+  
+  }
+  

@@ -1,0 +1,141 @@
+:root {
+ /*============================
+   TYPOGRAPHY TOKENS — Haus of Crunch
+   ============================ */
+
+  /* ---------- FONT FAMILIES ---------- */
+  --hoc-font-sans: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --hoc-font-serif: "Merriweather", Georgia, serif;
+  --hoc-font-mono: "Roboto Mono", "Courier New", monospace;
+
+  /* ---------- FONT WEIGHTS ---------- */
+  --hoc-font-weight-regular: 400;
+  --hoc-font-weight-medium: 500;
+  --hoc-font-weight-semibold: 600;
+  --hoc-font-weight-bold: 700;
+
+  /* ---------- BASE TYPOGRAPHIC SCALE ---------- */
+  --hoc-font-size-base: 16px;
+  --hoc-font-size-sm: 0.875rem;   /* ~14px */
+  --hoc-font-size-md: 1rem;       /* 16px */
+  --hoc-font-size-lg: 1.125rem;   /* 18px */
+  --hoc-font-size-xl: 1.5rem;     /* 24px */
+  --hoc-font-size-2xl: 2rem;      /* 32px */
+  --hoc-font-size-3xl: 3rem;      /* 48px */
+
+  /* ---------- LINE HEIGHTS ---------- */
+  --hoc-line-height-tight: 1.1;
+  --hoc-line-height-snug: 1.25;
+  --hoc-line-height-normal: 1.45;
+  --hoc-line-height-relaxed: 1.6;
+
+  /* ---------- LETTER SPACING ---------- */
+  --hoc-letter-tight: -0.01em;
+  --hoc-letter-normal: 0;
+  --hoc-letter-wide: 0.05em;
+}
+
+/* ============================
+   📐 BASE TYPOGRAPHY
+   ============================ */
+
+body {
+  font-family: var(--hoc-font-sans);
+  font-size: var(--hoc-font-size-base);
+  font-weight: var(--hoc-font-weight-regular);
+  line-height: var(--hoc-line-height-normal);
+  color: var(--hoc-text-default);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- HEADINGS ---------- */
+
+h1, .hoc-h1 {
+  font-size: var(--hoc-font-size-3xl);
+  line-height: var(--hoc-line-height-tight);
+  font-weight: var(--hoc-font-weight-bold);
+  letter-spacing: var(--hoc-letter-tight);
+  color: var(--hoc-text-default);
+  margin-bottom: 0.75em;
+}
+
+h2, .hoc-h2 {
+  font-size: var(--hoc-font-size-2xl);
+  line-height: var(--hoc-line-height-snug);
+  font-weight: var(--hoc-font-weight-semibold);
+  color: var(--hoc-text-default);
+  margin-bottom: 0.6em;
+}
+
+h3, .hoc-h3 {
+  font-size: var(--hoc-font-size-xl);
+  line-height: var(--hoc-line-height-normal);
+  font-weight: var(--hoc-font-weight-semibold);
+  color: var(--hoc-text-default);
+  margin-bottom: 0.5em;
+}
+
+h4, .hoc-h4 {
+  font-size: var(--hoc-font-size-lg);
+  line-height: var(--hoc-line-height-normal);
+  font-weight: var(--hoc-font-weight-medium);
+  color: var(--hoc-text-default);
+  margin-bottom: 0.5em;
+}
+
+h5, .hoc-h5 {
+  font-size: var(--hoc-font-size-md);
+  line-height: var(--hoc-line-height-normal);
+  font-weight: var(--hoc-font-weight-semibold);
+  color: var(--hoc-text-secondary);
+  margin-bottom: 0.4em;
+}
+
+h6, .hoc-h6 {
+  font-size: var(--hoc-font-size-sm);
+  line-height: var(--hoc-line-height-normal);
+  font-weight: var(--hoc-font-weight-medium);
+  color: var(--hoc-text-secondary);
+  margin-bottom: 0.4em;
+}
+
+/* ---------- BODY TEXT ---------- */
+
+p, .hoc-body {
+  font-size: var(--hoc-font-size-md);
+  line-height: var(--hoc-line-height-relaxed);
+  color: var(--hoc-text-default);
+  margin-bottom: 1em;
+}
+
+/* ---------- LABEL & SMALL TEXT ---------- */
+
+.hoc-label {
+  font-size: var(--hoc-font-size-sm);
+  font-weight: var(--hoc-font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--hoc-letter-wide);
+  color: var(--hoc-text-secondary);
+}
+
+.hoc-small {
+  font-size: var(--hoc-font-size-sm);
+  color: var(--hoc-text-secondary);
+}
+
+/* ---------- LINK STYLES ---------- */
+a {
+  color: var(--hoc-text-default);
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--hoc-bg-button-primary);
+}
+
+/* ---------- RESPONSIVE TYPE SCALE ---------- */
+@media (min-width: 768px) {
+  h1, .hoc-h1 { font-size: 3.5rem; }
+  h2, .hoc-h2 { font-size: 2.5rem; }
+  h3, .hoc-h3 { font-size: 1.75rem; }
+}

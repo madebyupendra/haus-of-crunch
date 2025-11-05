@@ -1,0 +1,32 @@
+/* =====================================
+   🧱 SECTION COMPONENT — Haus of Crunch
+   ===================================== */
+
+   .hoc-section {
+    padding-block: var(--hoc-space-3xl);
+  }
+  
+  @media (min-width: var(--hoc-breakpoint-md)) {
+    .hoc-section {
+      padding-block: var(--hoc-space-4xl);
+    }
+  }
+  
+  /* ---------- BACKGROUND VARIANTS ---------- */
+  .hoc-section--default {
+    background-color: var(--hoc-bg-default);
+  }
+  
+  .hoc-section--secondary {
+    background-color: var(--hoc-bg-secondary);
+  }
+  
+  .hoc-section--product {
+    background-color: var(--hoc-bg-product);
+  }
+  
+  /* ---------- ALIGNMENT UTILITY ---------- */
+  .hoc-section.text-center {
+    text-align: center;
+  }
+  
