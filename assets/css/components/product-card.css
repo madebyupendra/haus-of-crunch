@@ -4,6 +4,7 @@
 
    .hoc-product-card {
     list-style: none;
+    display: block; /* Ensure it's not creating a grid */
   }
   
   .hoc-product-card__link {
@@ -11,11 +12,12 @@
     flex-direction: column;
     text-decoration: none;
     color: inherit;
-    background-color: var(--hoc-bg-product);
     border: 1px solid var(--hoc-border-default);
     border-radius: var(--hoc-radius-lg);
     overflow: hidden;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
+    width: 100%;
+    height: 100%;
   }
   
   .hoc-product-card__link:hover {
@@ -29,13 +31,62 @@
     aspect-ratio: 3 / 4;
     background-color: var(--hoc-bg-secondary);
     overflow: hidden;
+    display: block;
+    width: 100%;
   }
   
-  .hoc-product-card__image-wrapper img {
+  /* Target all images directly or nested - absolute positioning to fill container */
+  .hoc-product-card__image-wrapper img,
+  .hoc-product-card__image-wrapper img.wp-post-image {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: center;
     display: block;
+  }
+  
+  /* Ensure WooCommerce elements inside image wrapper fill container */
+  .hoc-product-card__image-wrapper > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  
+  /* Ensure anchor tags fill the container */
+  .hoc-product-card__image-wrapper a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  
+  .hoc-product-card__image-wrapper a img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+  
+  /* Sale flash badge positioning */
+  .hoc-product-card__image-wrapper .onsale {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: block;
+    width: auto;
+    height: auto;
   }
   
   /* Content */
@@ -47,22 +98,25 @@
   }
   
   .hoc-product-card__brand {
-    font-size: var(--hoc-font-size-sm);
+    font-size: var(--hoc-font-size-md);
     color: var(--hoc-text-secondary);
+    font-weight: var(--hoc-font-weight-regular);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    line-height: 1;
   }
   
   .hoc-product-card__title {
     font-size: var(--hoc-font-size-md);
     color: var(--hoc-text-default);
-    font-weight: var(--hoc-font-weight-medium);
-    line-height: 1.3;
+    font-weight: var(--hoc-font-weight-regular);
+    text-transform: uppercase;
+    line-height: 1;
   }
   
   .hoc-product-card__price {
     font-size: var(--hoc-font-size-md);
     color: var(--hoc-text-default);
-    font-weight: var(--hoc-font-weight-semibold);
+    font-weight: var(--hoc-font-weight-regular);
+    line-height: 1;
   }
-  
+

@@ -4,8 +4,18 @@
 
    .hoc-container {
     width: 100%;
-    max-width: 1440px;
-    margin-inline: auto;
-    padding-inline: var(--hoc-space-md);
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 16px; /* 16px on mobile and tablet */
+    padding-right: 16px; /* 16px on mobile and tablet */
+    box-sizing: border-box;
+  }
+
+  @media (min-width: 1024px) {
+    .hoc-container {
+      padding-left: 32px; /* 32px on desktop (1024px+) */
+      padding-right: 32px; /* 32px on desktop (1024px+) */
+    }
   }
   

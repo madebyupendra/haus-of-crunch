@@ -12,13 +12,14 @@ defined('ABSPATH') || exit;
 
 global $product;
 
-if (empty($product) || !$product->is_visible()) {
-  return;
+// Enhanced error handling
+if (empty($product) || !is_a($product, 'WC_Product') || !$product->is_visible()) {
+    return;
 }
 
-// Get brand attribute if it exists
-$brand = wc_get_product_terms($product->get_id(), 'pa_brand', ['fields' => 'names']);
-$brand_name = !empty($brand) ? esc_html($brand[0]) : '';
+// Get brand taxonomy if it exists
+$brand_terms = get_the_terms($product->get_id(), 'product_brand');
+$brand_name = (!empty($brand_terms) && !is_wp_error($brand_terms)) ? esc_html($brand_terms[0]->name) : '';
 ?>
 
 <li <?php wc_product_class('hoc-product-card'); ?>>
@@ -36,10 +37,10 @@ $brand_name = !empty($brand) ? esc_html($brand[0]) : '';
 
     <div class="hoc-product-card__content">
       <?php if ($brand_name) : ?>
-        <span class="hoc-product-card__brand"><?php echo $brand_name; ?></span>
+        <span class="hoc-product-card__brand"><?php echo esc_html($brand_name); ?></span>
       <?php endif; ?>
 
-      <h2 class="hoc-product-card__title"><?php the_title(); ?></h2>
+      <h2 class="hoc-product-card__title"><?php echo esc_html(get_the_title()); ?></h2>
 
       <div class="hoc-product-card__price">
         <?php do_action('woocommerce_after_shop_loop_item_title'); ?>

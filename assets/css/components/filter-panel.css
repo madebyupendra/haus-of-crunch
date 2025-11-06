@@ -1,0 +1,176 @@
+/* =====================================
+   🎛️ FILTER PANEL — Haus of Crunch
+   Minimal design inspired by Undefeated
+   ===================================== */
+
+.hoc-filter-panel {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.hoc-filter-panel__section {
+  margin-bottom: 1rem;
+}
+
+.hoc-filter-panel__section:last-child {
+  margin-bottom: 0;
+}
+
+/* Section Titles */
+.hoc-filter-panel__title {
+  font-size: var(--hoc-font-size-base);
+  font-weight: var(--hoc-font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--hoc-text-default);
+  margin-bottom: 8px;
+  padding: 0;
+  line-height: 1.2;
+}
+
+/* List styles for COLLECTIONS and BRAND */
+.hoc-filter-panel__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.hoc-filter-panel__item {
+  margin: 0;
+  padding: 0;
+}
+
+.hoc-filter-panel__link {
+  display: block;
+  font-size: var(--hoc-font-size-sm);
+  font-weight: var(--hoc-font-weight-regular);
+  color: var(--hoc-text-default);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding-left: 16px;
+  padding-bottom: 0px;
+  transition: color 0.2s ease;
+  line-height: 1;
+}
+
+.hoc-filter-panel__link:hover {
+  color: var(--hoc-text-secondary);
+}
+
+.hoc-filter-panel__link.is-active {
+  color: var(--hoc-text-default);
+  font-weight: var(--hoc-font-weight-medium);
+}
+
+/* SALE link - red color */
+.hoc-filter-panel__link--sale {
+  color: #e50000;
+}
+
+.hoc-filter-panel__link--sale:hover {
+  color: #c40000;
+}
+
+.hoc-filter-panel__link--sale.is-active {
+  color: #e50000;
+  font-weight: var(--hoc-font-weight-semibold);
+}
+
+/* SIZE Grid */
+.hoc-filter-panel__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.hoc-filter-panel__size-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--hoc-font-size-sm);
+  font-weight: var(--hoc-font-weight-regular);
+  color: var(--hoc-text-default);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 0.5rem 0.25rem;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  line-height: 1;
+  text-align: center;
+  min-height: 2.5rem;
+}
+
+.hoc-filter-panel__size-link:hover {
+  color: var(--hoc-text-secondary);
+}
+
+.hoc-filter-panel__size-link.is-active {
+  color: var(--hoc-text-default);
+  font-weight: var(--hoc-font-weight-medium);
+  background-color: var(--hoc-bg-secondary);
+}
+
+/* Clear Filters */
+.hoc-filter-panel__clear {
+  display: inline-block;
+  font-size: var(--hoc-font-size-sm);
+  font-weight: var(--hoc-font-weight-medium);
+  color: var(--hoc-text-secondary);
+  text-decoration: underline;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 0.5rem 0;
+  transition: color 0.2s ease;
+}
+
+.hoc-filter-panel__clear:hover {
+  color: var(--hoc-text-default);
+}
+
+/* Mobile: Hide filter panel by default, show toggle button */
+@media (max-width: 767px) {
+  .hoc-filter-panel {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-width: 320px;
+    height: 100vh;
+    background: var(--hoc-bg-default);
+    padding: 2rem;
+    overflow-y: auto;
+    z-index: 9999;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .hoc-filter-panel.is-open {
+    display: block;
+  }
+
+  .hoc-filter-panel__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Tablet and Desktop: Always visible sidebar */
+@media (min-width: 768px) {
+  .hoc-filter-panel {
+    display: block;
+    max-width: 240px;
+    padding-right: 2rem;
+  }
+}
+
+/* Desktop: Wider spacing */
+@media (min-width: 1024px) {
+  .hoc-filter-panel {
+    max-width: 280px;
+    padding-right: 3rem;
+  }
+}
+

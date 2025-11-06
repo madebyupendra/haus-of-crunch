@@ -70,9 +70,19 @@ a:hover {
 /* ---------- GLOBAL LAYOUT ---------- */
 .hoc-container {
   width: 100%;
-  max-width: 1440px;
-  margin-inline: auto;
-  padding-inline: var(--hoc-space-md);
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 16px; /* 16px on mobile and tablet */
+  padding-right: 16px; /* 16px on mobile and tablet */
+  box-sizing: border-box;
+}
+
+@media (min-width: 1024px) {
+  .hoc-container {
+    padding-left: 32px; /* 32px on desktop (1024px+) */
+    padding-right: 32px; /* 32px on desktop (1024px+) */
+  }
 }
 
 .hoc-section {
@@ -83,6 +93,40 @@ a:hover {
   .hoc-section {
     padding-block: var(--hoc-space-3xl);
   }
+}
+
+/* ---------- ACCESSIBILITY ---------- */
+/* Skip to content link for screen readers */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  z-index: 999999;
+  padding: 0.5rem 1rem;
+  background: var(--hoc-bg-button-primary);
+  color: var(--hoc-text-primary-on-button);
+  text-decoration: none;
+  font-weight: var(--hoc-font-weight-semibold);
+}
+
+.skip-link:focus {
+  left: 0;
+  top: 0;
+}
+
+/* Screen reader only text */
+.screen-reader-text {
+  clip: rect(1px, 1px, 1px, 1px);
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+}
+
+.screen-reader-text:focus {
+  clip: auto !important;
+  height: auto;
+  width: auto;
+  position: static !important;
 }
 
 /* ---------- UTILITY CLASSES ---------- */

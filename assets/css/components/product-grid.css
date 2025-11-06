@@ -1,0 +1,44 @@
+/* =====================================
+   📦 PRODUCT GRID — Haus of Crunch
+   ===================================== */
+
+.hoc-product-grid {
+  display: grid;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  
+  /* Mobile: 2 columns, Column gap 8px, Row gap 16px */
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px 8px; /* row-gap column-gap */
+}
+
+/* Ensure product cards don't create nested grids */
+.hoc-product-grid > .hoc-product-card {
+  display: block;
+  width: 100%;
+}
+
+/* Override any WooCommerce default styles that might interfere */
+.hoc-product-grid .woocommerce-LoopProduct-link,
+.hoc-product-grid .woocommerce-loop-product__link {
+  display: contents; /* Remove any display properties from WooCommerce links */
+}
+
+/* Tablet: 3 columns, Column gap 16px, Row gap 32px */
+@media (min-width: 768px) {
+  .hoc-product-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px 16px; /* row-gap column-gap */
+  }
+}
+
+/* Desktop: 4 columns, Column gap 16px, Row gap 32px */
+@media (min-width: 1024px) {
+  .hoc-product-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px 16px; /* row-gap column-gap */
+  }
+}
+

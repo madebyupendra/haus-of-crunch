@@ -2,20 +2,97 @@
    🛒 SHOP PAGE — Haus of Crunch
    ===================================== */
 
-   .woocommerce-shop {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: var(--hoc-space-xl);
-    padding-block: var(--hoc-space-2xl);
+.hoc-shop-page {
+  padding-block: var(--hoc-space-2xl);
+  position: relative;
+}
+
+/* Mobile Filter Toggle Button */
+.hoc-filter-toggle {
+  display: none;
+  width: 100%;
+  padding: 1rem;
+  background: var(--hoc-bg-default);
+  border: 1px solid var(--hoc-border-default);
+  font-size: var(--hoc-font-size-base);
+  font-weight: var(--hoc-font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--hoc-text-default);
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.hoc-filter-toggle:hover {
+  background: var(--hoc-bg-secondary);
+}
+
+.hoc-filter-toggle[aria-expanded="true"] {
+  border-color: var(--hoc-text-default);
+}
+
+@media (max-width: 767px) {
+  .hoc-filter-toggle {
+    display: block;
   }
-  
-  .woocommerce-shop .products {
-    display: contents; /* Let WooCommerce's product loop items inherit the grid */
+}
+
+.hoc-shop-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.hoc-shop-sidebar {
+  position: sticky;
+  top: 2rem;
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
+}
+
+.hoc-shop-main {
+  min-width: 0; /* Prevents grid overflow */
+}
+
+/* Mobile: Stack layout */
+@media (max-width: 767px) {
+  .hoc-shop-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
-  
-  .woocommerce-shop .woocommerce-pagination {
-    grid-column: 1 / -1;
-    margin-top: var(--hoc-space-2xl);
-    text-align: center;
+
+  .hoc-shop-sidebar {
+    position: static;
+    max-height: none;
   }
-  
+}
+
+/* Tablet: Smaller gap */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hoc-shop-layout {
+    grid-template-columns: 200px 1fr;
+    gap: 2rem;
+  }
+}
+
+/* Desktop: Wider sidebar */
+@media (min-width: 1024px) {
+  .hoc-shop-layout {
+    grid-template-columns: 280px 1fr;
+    gap: 4rem;
+  }
+}
+
+.woocommerce-shop {
+  padding-block: var(--hoc-space-2xl);
+}
+
+/* Product grid styles are now in product-grid.css */
+
+.woocommerce-shop .woocommerce-pagination {
+  grid-column: 1 / -1;
+  margin-top: var(--hoc-space-2xl);
+  text-align: center;
+}

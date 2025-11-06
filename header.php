@@ -10,6 +10,8 @@
 <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
+<?php wp_body_open(); ?>
+<a class="skip-link screen-reader-text" href="#main-content"><?php esc_html_e('Skip to content', 'haus-of-crunch'); ?></a>
 <div class="site">
   <header class="site-header">
     <div class="hoc-container site-header__inner">
@@ -20,18 +22,18 @@
         <a class="site-title" href="<?php echo esc_url( home_url('/') ); ?>"><?php bloginfo('name'); ?></a>
       </div>
 
-      <nav class="hoc-main-nav">
+      <nav class="hoc-main-nav" aria-label="<?php esc_attr_e('Main Navigation', 'haus-of-crunch'); ?>">
         <?php
           wp_nav_menu( array(
             'theme_location' => 'primary',
             'container' => '',
-            'menu_class' => 'hoc-menu'
+            'menu_class' => 'hoc-menu',
+            'fallback_cb' => false,
+            'depth' => 2,
           ) );
         ?>
       </nav>
-
-      <button class="hoc-nav-toggle" aria-expanded="false">Menu</button>
     </div>
   </header>
 
-  <main class="site-main" role="main">
+  <main id="main-content" class="site-main" role="main">

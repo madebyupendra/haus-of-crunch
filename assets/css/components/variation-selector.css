@@ -1,0 +1,151 @@
+/* =====================================
+   🧃 VARIATION SELECTOR — Haus of Crunch
+   Nike-inspired button-based selector
+   ===================================== */
+
+.hoc-variation-selector {
+  display: flex;
+  flex-direction: column;
+  gap: var(--hoc-space-md);
+  width: 100%;
+}
+
+/* Header Section */
+.hoc-variation-selector__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.hoc-variation-selector__label {
+  font-size: var(--hoc-font-size-md);
+  font-weight: var(--hoc-font-weight-bold);
+  color: var(--hoc-text-default);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.hoc-variation-selector__size-guide {
+  display: flex;
+  align-items: center;
+  gap: var(--hoc-space-xs);
+  font-size: var(--hoc-font-size-sm);
+  color: var(--hoc-text-default);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.hoc-variation-selector__size-guide:hover {
+  color: var(--hoc-text-secondary);
+}
+
+.hoc-variation-selector__size-guide-icon {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+}
+
+/* Button Grid */
+.hoc-variation-selector__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--hoc-space-sm);
+  width: 100%;
+}
+
+/* Variation Buttons */
+.hoc-variation-selector__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: var(--hoc-space-sm) var(--hoc-space-md);
+  background-color: var(--hoc-bg-default);
+  border: 1px solid var(--hoc-border-divider);
+  border-radius: var(--hoc-radius-md);
+  font-size: var(--hoc-font-size-sm);
+  font-weight: var(--hoc-font-weight-regular);
+  color: var(--hoc-text-default);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  font-family: inherit;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.hoc-variation-selector__button:hover {
+  border-color: var(--hoc-text-default);
+  background-color: var(--hoc-bg-default);
+}
+
+.hoc-variation-selector__button:focus {
+  outline: 2px solid var(--hoc-text-default);
+  outline-offset: 2px;
+}
+
+.hoc-variation-selector__button:active {
+  transform: scale(0.98);
+}
+
+/* Selected State */
+.hoc-variation-selector__button--selected {
+  border-color: var(--hoc-text-default);
+  background-color: var(--hoc-text-default);
+  color: var(--hoc-text-primary-on-button);
+}
+
+.hoc-variation-selector__button--selected:hover {
+  background-color: var(--hoc-bg-button-primary-hover);
+  border-color: var(--hoc-bg-button-primary-hover);
+}
+
+/* Disabled State (for unavailable options) */
+.hoc-variation-selector__button:disabled,
+.hoc-variation-selector__button[aria-disabled="true"],
+.hoc-variation-selector__button--disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+  background-color: var(--hoc-bg-secondary);
+  border-color: var(--hoc-border-divider);
+  color: var(--hoc-text-disabled);
+}
+
+/* Hidden Select (for WooCommerce JS) */
+.hoc-variation-selector__hidden-select {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+  /* Keep it in DOM but visually hidden so events still work */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 480px) {
+  .hoc-variation-selector__grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .hoc-variation-selector__button {
+    min-height: 44px;
+  }
+}
+
+/* Optional: Single column layout for narrow containers */
+.hoc-variation-selector--single-column .hoc-variation-selector__grid {
+  grid-template-columns: 1fr;
+}
+
+/* Optional: Three column layout for wider containers */
+@media (min-width: 768px) {
+  .hoc-variation-selector--three-column .hoc-variation-selector__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+

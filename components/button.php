@@ -14,6 +14,10 @@
  * ]);
  */
 
+// Get args from query vars (set by hoc_get_component) or direct $args
+$component_args = get_query_var('component_args', []);
+$args = !empty($args) ? $args : $component_args;
+
 $label    = $args['label'] ?? 'Button';
 $variant  = $args['variant'] ?? 'primary';
 $size     = $args['size'] ?? 'md';

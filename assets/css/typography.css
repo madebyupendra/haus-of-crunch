@@ -4,7 +4,7 @@
    ============================ */
 
   /* ---------- FONT FAMILIES ---------- */
-  --hoc-font-sans: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --hoc-font-sans: "NimbusSanL", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --hoc-font-serif: "Merriweather", Georgia, serif;
   --hoc-font-mono: "Roboto Mono", "Courier New", monospace;
 
@@ -15,9 +15,9 @@
   --hoc-font-weight-bold: 700;
 
   /* ---------- BASE TYPOGRAPHIC SCALE ---------- */
-  --hoc-font-size-base: 16px;
+  --hoc-font-size-base: 15px;
   --hoc-font-size-sm: 0.875rem;   /* ~14px */
-  --hoc-font-size-md: 1rem;       /* 16px */
+  --hoc-font-size-md: 0.938rem;       /* 15px */
   --hoc-font-size-lg: 1.125rem;   /* 18px */
   --hoc-font-size-xl: 1.5rem;     /* 24px */
   --hoc-font-size-2xl: 2rem;      /* 32px */
