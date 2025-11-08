@@ -14,8 +14,8 @@
 
   @media (min-width: 1024px) {
     .hoc-container {
-      padding-left: 32px; /* 32px on desktop (1024px+) */
-      padding-right: 32px; /* 32px on desktop (1024px+) */
+      padding-left: 24px; /* 24px on desktop (1024px+) */
+      padding-right: 24px; /* 24px on desktop (1024px+) */
     }
   }
   

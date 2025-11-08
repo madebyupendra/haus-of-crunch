@@ -112,6 +112,7 @@
                 
                 var value = $button.data('value');
                 var attributeName = $button.data('attribute');
+                var isCurrentlySelected = $button.hasClass('hoc-variation-selector__button--selected');
 
                 // Ensure we have a select element
                 if (!$hiddenSelect.length) {
@@ -119,6 +120,32 @@
                         console.warn('HOC Variation Selector: Could not find select element');
                     }
                     return;
+                }
+
+                // If button is already selected, unselect it (toggle off)
+                if (isCurrentlySelected) {
+                    // Clear the selection
+                    $button.removeClass('hoc-variation-selector__button--selected')
+                            .attr('aria-pressed', 'false');
+                    
+                    // Clear the select value (set to empty string or first placeholder option)
+                    var $firstOption = $hiddenSelect.find('option').first();
+                    var emptyValue = $firstOption.length ? $firstOption.val() : '';
+                    $hiddenSelect.val(emptyValue);
+
+                    // Trigger WooCommerce variation change events to reset
+                    var $form = $selector.closest('.variations_form');
+                    if ($form.length && $hiddenSelect.length) {
+                        var selectElement = $hiddenSelect[0];
+                        
+                        if (selectElement) {
+                            selectElement.value = emptyValue;
+                            // Trigger the change event with WooCommerce's specific namespace
+                            $hiddenSelect.trigger('change.wc-variation-form');
+                        }
+                    }
+                    
+                    return; // Exit early since we've handled the unselect
                 }
 
                 // Verify the value exists and is available in the select
@@ -294,6 +321,56 @@
                         .attr('aria-pressed', 'true');
             }
         });
+    });
+
+    /**
+     * Update main product price when variation changes
+     * This replaces the separate variation price display with updating the main price
+     */
+    $(document).ready(function() {
+        var $variationForm = $('.variations_form');
+        
+        if ($variationForm.length) {
+            // Store the original price on page load
+            var $mainPrice = $('.summary .price, .entry-summary .price, .product .price').first();
+            var originalPriceHtml = $mainPrice.length ? $mainPrice.html() : null;
+            
+            // Listen for when a variation is found/selected
+            $variationForm.on('found_variation', function(event, variation) {
+                // Get the variation price HTML
+                var variationPriceHtml = variation.price_html;
+                
+                if (variationPriceHtml && $mainPrice.length) {
+                    // Update the main price with the variation price
+                    $mainPrice.html(variationPriceHtml);
+                }
+            });
+            
+            // Listen for when variations are reset/cleared
+            $variationForm.on('reset_data', function() {
+                // Restore the original price
+                if (originalPriceHtml && $mainPrice.length) {
+                    $mainPrice.html(originalPriceHtml);
+                }
+            });
+            
+            // Also listen for the show_variation event (alternative event)
+            $variationForm.on('show_variation', function(event, variation) {
+                var variationPriceHtml = variation.price_html;
+                
+                if (variationPriceHtml && $mainPrice.length) {
+                    $mainPrice.html(variationPriceHtml);
+                }
+            });
+            
+            // Listen for hide_variation event (when no valid variation is selected)
+            $variationForm.on('hide_variation', function() {
+                // Restore original price when variation is hidden
+                if (originalPriceHtml && $mainPrice.length) {
+                    $mainPrice.html(originalPriceHtml);
+                }
+            });
+        }
     });
 
 })(jQuery);

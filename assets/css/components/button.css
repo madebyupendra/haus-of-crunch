@@ -19,31 +19,37 @@
   /* ---------- SIZES ---------- */
   .hoc-btn--sm {
     font-size: var(--hoc-font-size-sm);
+    line-height: var(--hoc-line-height-sm);
+    letter-spacing: var(--hoc-letter-sm);
     padding: var(--hoc-space-xs) var(--hoc-space-sm);
   }
   
   .hoc-btn--md {
     font-size: var(--hoc-font-size-base);
+    line-height: var(--hoc-line-height-base);
+    letter-spacing: var(--hoc-letter-base);
     padding: var(--hoc-space-sm) var(--hoc-space-md);
   }
   
   .hoc-btn--lg {
     font-size: var(--hoc-font-size-md);
+    line-height: var(--hoc-line-height-md);
+    letter-spacing: var(--hoc-letter-md);
     padding: var(--hoc-space-md) var(--hoc-space-lg);
   }
   
   /* ---------- VARIANTS ---------- */
   .hoc-btn--primary {
     background-color: var(--hoc-bg-button-primary);
-    color: var(--hoc-text-on-primary);
+    color: var(--hoc-text-primary-on-button);
   }
   
   .hoc-btn--primary:hover {
-    background-color: var(--hoc-bg-button-hover);
+    background-color: var(--hoc-bg-button-primary-hover);
   }
   
   .hoc-btn--primary:active {
-    background-color: var(--hoc-bg-button-active);
+    background-color: var(--hoc-bg-button-primary-active);
   }
   
   .hoc-btn--secondary {

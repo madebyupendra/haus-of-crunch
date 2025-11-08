@@ -1,0 +1,100 @@
+/* =====================================
+   🧃 PRODUCT ACCORDION — Haus of Crunch
+   ===================================== */
+
+.hoc-product-accordion {
+  width: 100%;
+  border-bottom: 1px solid var(--hoc-border-divider);
+}
+
+.hoc-product-accordion__item {
+  border-bottom: 1px solid var(--hoc-border-divider);
+}
+
+.hoc-product-accordion__item:last-child {
+  border-bottom: none;
+}
+
+.hoc-product-accordion__button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--hoc-space-md) 0;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--hoc-font-size-md);
+  line-height: var(--hoc-line-height-md);
+  letter-spacing: var(--hoc-letter-md);
+  font-weight: var(--hoc-font-weight-bold);
+  color: var(--hoc-text-default);
+  transition: color 0.2s ease;
+}
+
+.hoc-product-accordion__button:hover {
+  color: var(--hoc-text-secondary);
+}
+
+.hoc-product-accordion__button:focus {
+  outline: 2px solid var(--hoc-text-default);
+  outline-offset: 2px;
+  border-radius: var(--hoc-radius-sm);
+}
+
+.hoc-product-accordion__icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  margin-left: var(--hoc-space-md);
+  transition: transform 0.3s ease;
+  stroke: currentColor;
+  fill: none;
+}
+
+.hoc-product-accordion__item.is-open .hoc-product-accordion__icon {
+  transform: rotate(180deg);
+}
+
+.hoc-product-accordion__content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  padding: 0;
+}
+
+.hoc-product-accordion__item.is-open .hoc-product-accordion__content {
+  padding-bottom: var(--hoc-space-md);
+}
+
+.hoc-product-accordion__content-inner {
+  font-size: var(--hoc-font-size-md);
+  line-height: var(--hoc-line-height-md);
+  letter-spacing: var(--hoc-letter-md);
+  color: var(--hoc-text-default);
+}
+
+.hoc-product-accordion__content-inner p {
+  margin: 0 0 var(--hoc-space-md) 0;
+}
+
+.hoc-product-accordion__content-inner p:last-child {
+  margin-bottom: 0;
+}
+
+/* Ensure proper spacing for lists, headings, etc. */
+.hoc-product-accordion__content-inner ul,
+.hoc-product-accordion__content-inner ol {
+  margin: var(--hoc-space-md) 0;
+  padding-left: var(--hoc-space-lg);
+}
+
+.hoc-product-accordion__content-inner h1,
+.hoc-product-accordion__content-inner h2,
+.hoc-product-accordion__content-inner h3,
+.hoc-product-accordion__content-inner h4 {
+  margin: var(--hoc-space-md) 0 var(--hoc-space-sm) 0;
+}
+

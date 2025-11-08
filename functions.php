@@ -29,6 +29,8 @@ function hoc_enqueue_assets() {
     wp_enqueue_style( 'hoc-product-grid', $theme_dir . '/assets/css/components/product-grid.css', ['hoc-tokens'], null );
     wp_enqueue_style( 'hoc-single-product', $theme_dir . '/assets/css/components/single-product.css', ['hoc-tokens'], null );
     wp_enqueue_style( 'hoc-variation-selector', $theme_dir . '/assets/css/components/variation-selector.css', ['hoc-tokens'], null );
+    wp_enqueue_style( 'hoc-product-gallery', $theme_dir . '/assets/css/components/product-gallery.css', ['hoc-tokens'], null );
+    wp_enqueue_style( 'hoc-product-accordion', $theme_dir . '/assets/css/components/product-accordion.css', ['hoc-tokens'], null );
 
     // Main stylesheet
     wp_enqueue_style( 'hoc-style', get_stylesheet_uri(), ['hoc-base'], '0.1' );
@@ -44,6 +46,8 @@ function hoc_enqueue_assets() {
             $deps[] = 'wc-add-to-cart-variation';
         }
         wp_enqueue_script( 'hoc-variation-selector', $theme_dir . '/assets/js/variation-selector.js', $deps, '0.1', true );
+        wp_enqueue_script( 'hoc-product-gallery', $theme_dir . '/assets/js/product-gallery.js', ['jquery'], '0.1', true );
+        wp_enqueue_script( 'hoc-product-accordion', $theme_dir . '/assets/js/product-accordion.js', ['jquery'], '0.1', true );
     }
 }
 add_action( 'wp_enqueue_scripts', 'hoc_enqueue_assets' );
@@ -355,3 +359,197 @@ function hoc_custom_variable_add_to_cart() {
 // Remove default WooCommerce function and add our custom one
 remove_action( 'woocommerce_variable_add_to_cart', 'woocommerce_variable_add_to_cart', 30 );
 add_action( 'woocommerce_variable_add_to_cart', 'hoc_custom_variable_add_to_cart', 30 );
+
+/**
+ * Replace default WooCommerce product gallery with custom ProductGallery component
+ */
+function hoc_replace_product_gallery() {
+    if ( is_product() ) {
+        // Remove default WooCommerce product images
+        remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20 );
+    }
+}
+add_action( 'wp', 'hoc_replace_product_gallery' );
+
+/**
+ * Hide quantity input and replace add to cart button with custom button component
+ * Uses output buffering to intercept and replace the form content
+ */
+function hoc_customize_add_to_cart() {
+    if ( ! is_product() ) {
+        return;
+    }
+
+    // Replace quantity input with hidden field
+    add_action( 'woocommerce_before_add_to_cart_quantity', 'hoc_replace_quantity_input', 5 );
+    add_action( 'woocommerce_after_add_to_cart_quantity', 'hoc_output_hidden_quantity', 999 );
+    
+    // Replace button using output buffering
+    add_action( 'woocommerce_before_add_to_cart_button', 'hoc_start_button_capture', 5 );
+    add_action( 'woocommerce_after_add_to_cart_button', 'hoc_replace_button_output', 999 );
+}
+
+/**
+ * Start capturing quantity input to replace it
+ */
+function hoc_replace_quantity_input() {
+    ob_start();
+}
+
+/**
+ * Replace captured quantity input with hidden field
+ */
+function hoc_output_hidden_quantity() {
+    global $product;
+    if ( ! $product ) {
+        return;
+    }
+    
+    // Discard captured quantity input
+    ob_end_clean();
+    
+    // Output hidden quantity field
+    $min_value = $product->get_min_purchase_quantity();
+    $quantity = isset( $_POST['quantity'] ) ? wc_stock_amount( wp_unslash( $_POST['quantity'] ) ) : $min_value;
+    echo '<input type="hidden" name="quantity" value="' . esc_attr( $quantity ) . '" />';
+}
+
+/**
+ * Start capturing button output
+ */
+function hoc_start_button_capture() {
+    ob_start();
+}
+
+/**
+ * Replace captured button with custom button component
+ */
+function hoc_replace_button_output() {
+    global $product;
+    if ( ! $product ) {
+        return;
+    }
+    
+    // Get and discard captured button HTML
+    ob_get_clean();
+    
+    // Get product ID
+    $product_id = $product->get_id();
+    
+    // Output our custom button component
+    get_template_part( 'components/button', null, [
+        'label'   => $product->single_add_to_cart_text(),
+        'variant' => 'primary',
+        'size'    => 'lg',
+        'type'    => 'submit',
+        'name'    => 'add-to-cart',
+        'value'   => $product_id,
+        'class'   => 'single_add_to_cart_button',
+        'disabled'=> false,
+    ] );
+}
+add_action( 'wp', 'hoc_customize_add_to_cart' );
+
+/**
+ * Remove default product meta from priority 40 and reposition it
+ */
+function hoc_reposition_product_meta() {
+    remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
+    // Add product meta at priority 30, but it will run after shipping info since we register it later
+    add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 30 );
+}
+add_action( 'init', 'hoc_reposition_product_meta', 20 );
+
+/**
+ * Add shipping information block after add to cart button
+ * This runs before product meta since it's registered first
+ */
+function hoc_shipping_info_block() {
+    if ( ! is_product() ) {
+        return;
+    }
+    ?>
+    <div class="hoc-shipping-info">
+        <h3 class="hoc-shipping-info__heading">Shipping**</h3>
+        <p class="hoc-shipping-info__text">You'll see our shipping options at checkout.</p>
+    </div>
+    <?php
+}
+add_action( 'woocommerce_single_product_summary', 'hoc_shipping_info_block', 30 );
+
+/**
+ * Add product accordion to single product summary
+ * Displays after the product meta (priority 31)
+ */
+function hoc_product_accordion() {
+    if ( ! is_product() ) {
+        return;
+    }
+    get_template_part( 'components/product-accordion' );
+}
+add_action( 'woocommerce_single_product_summary', 'hoc_product_accordion', 31 );
+
+/**
+ * Add Shipping & Delivery custom field to WooCommerce product editor
+ */
+function hoc_add_shipping_delivery_field() {
+    global $woocommerce, $post;
+    
+    echo '<div class="options_group">';
+    
+    woocommerce_wp_textarea_input(
+        array(
+            'id'          => '_shipping_delivery',
+            'label'       => __('Shipping & Delivery', 'haus-of-crunch'),
+            'placeholder' => __('Enter shipping and delivery information...', 'haus-of-crunch'),
+            'desc_tip'    => true,
+            'description' => __('This information will be displayed on the product page in an accordion section.', 'haus-of-crunch'),
+        )
+    );
+    
+    echo '</div>';
+}
+add_action('woocommerce_product_options_shipping_product_data', 'hoc_add_shipping_delivery_field');
+
+/**
+ * Save Shipping & Delivery custom field
+ */
+function hoc_save_shipping_delivery_field($post_id) {
+    $shipping_delivery = isset($_POST['_shipping_delivery']) ? wp_kses_post($_POST['_shipping_delivery']) : '';
+    update_post_meta($post_id, '_shipping_delivery', $shipping_delivery);
+}
+add_action('woocommerce_process_product_meta', 'hoc_save_shipping_delivery_field');
+
+/**
+ * Add shipping & delivery accordion to single product summary
+ * Displays after the description accordion (priority 32)
+ */
+function hoc_product_shipping_accordion() {
+    if ( ! is_product() ) {
+        return;
+    }
+    get_template_part( 'components/product-shipping-accordion' );
+}
+add_action( 'woocommerce_single_product_summary', 'hoc_product_shipping_accordion', 32 );
+
+/**
+ * Remove WooCommerce default product tabs (Description, Additional Information, Reviews)
+ * Since we're using accordions for Description and Shipping & Delivery
+ */
+function hoc_remove_product_tabs( $tabs ) {
+    unset( $tabs['description'] );
+    unset( $tabs['additional_information'] );
+    unset( $tabs['reviews'] );
+    return $tabs;
+}
+add_filter( 'woocommerce_product_tabs', 'hoc_remove_product_tabs', 98 );
+
+/**
+ * Remove WooCommerce default brand output with "posted_in" class
+ * We're displaying brand with bullet point in our custom meta template
+ */
+function hoc_remove_default_brand_output() {
+    // Filter the brand output to empty string to prevent display
+    add_filter( 'woocommerce_product_brands_output', '__return_empty_string', 999 );
+}
+add_action( 'init', 'hoc_remove_default_brand_output', 20 );

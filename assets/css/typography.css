@@ -14,25 +14,169 @@
   --hoc-font-weight-semibold: 600;
   --hoc-font-weight-bold: 700;
 
-  /* ---------- BASE TYPOGRAPHIC SCALE ---------- */
-  --hoc-font-size-base: 15px;
-  --hoc-font-size-sm: 0.875rem;   /* ~14px */
-  --hoc-font-size-md: 0.938rem;       /* 15px */
-  --hoc-font-size-lg: 1.125rem;   /* 18px */
-  --hoc-font-size-xl: 1.5rem;     /* 24px */
-  --hoc-font-size-2xl: 2rem;      /* 32px */
-  --hoc-font-size-3xl: 3rem;      /* 48px */
+  /* ============================
+     RESPONSIVE TYPOGRAPHY SCALE
+     Mobile & Tablet (0-1023px) share same values
+     Desktop (1024px+) gets larger values
+     ============================ */
 
-  /* ---------- LINE HEIGHTS ---------- */
+  /* ---------- FONT SIZES (Mobile & Tablet: 0-1023px) ---------- */
+  --hoc-font-size-xs-mobile: 0.75rem;      /* 12px */
+  --hoc-font-size-sm-mobile: 0.875rem;     /* 14px */
+  --hoc-font-size-base-mobile: 0.875rem;   /* 14px - matches example 1 */
+  --hoc-font-size-md-mobile: 1rem;         /* 16px */
+  --hoc-font-size-lg-mobile: 1.125rem;     /* 18px */
+  --hoc-font-size-xl-mobile: 1.188rem;     /* 19px - matches example 2 */
+  --hoc-font-size-2xl-mobile: 1.5rem;      /* 24px - matches example 3 */
+  --hoc-font-size-3xl-mobile: 1.875rem;    /* 30px */
+  --hoc-font-size-4xl-mobile: 2.25rem;     /* 36px */
+  --hoc-font-size-5xl-mobile: 2.5rem;      /* 40px */
+
+  /* ---------- FONT SIZES (Desktop: 1024px+) ---------- */
+  --hoc-font-size-xs-desktop: 0.875rem;    /* 14px */
+  --hoc-font-size-sm-desktop: 1rem;        /* 16px - matches example 1 */
+  --hoc-font-size-base-desktop: 1rem;      /* 16px */
+  --hoc-font-size-md-desktop: 1.125rem;    /* 18px */
+  --hoc-font-size-lg-desktop: 1.25rem;     /* 20px */
+  --hoc-font-size-xl-desktop: 1.5rem;      /* 24px - matches example 2 */
+  --hoc-font-size-2xl-desktop: 2rem;       /* 32px - matches example 3 */
+  --hoc-font-size-3xl-desktop: 2.5rem;     /* 40px */
+  --hoc-font-size-4xl-desktop: 3rem;       /* 48px */
+  --hoc-font-size-5xl-desktop: 3.5rem;     /* 56px */
+
+  /* ---------- LINE HEIGHTS (Mobile & Tablet) ---------- */
+  /* Line height equals font size (1:1 ratio) */
+  --hoc-line-height-xs-mobile: 0.75rem;
+  --hoc-line-height-sm-mobile: 0.875rem;
+  --hoc-line-height-base-mobile: 0.875rem;
+  --hoc-line-height-md-mobile: 1rem;
+  --hoc-line-height-lg-mobile: 1.125rem;
+  --hoc-line-height-xl-mobile: 1.188rem;
+  --hoc-line-height-2xl-mobile: 1.5rem;
+  --hoc-line-height-3xl-mobile: 1.875rem;
+  --hoc-line-height-4xl-mobile: 2.25rem;
+  --hoc-line-height-5xl-mobile: 2.5rem;
+
+  /* ---------- LINE HEIGHTS (Desktop) ---------- */
+  --hoc-line-height-xs-desktop: 0.875rem;
+  --hoc-line-height-sm-desktop: 1rem;
+  --hoc-line-height-base-desktop: 1rem;
+  --hoc-line-height-md-desktop: 1.125rem;
+  --hoc-line-height-lg-desktop: 1.25rem;
+  --hoc-line-height-xl-desktop: 1.5rem;
+  --hoc-line-height-2xl-desktop: 2rem;
+  --hoc-line-height-3xl-desktop: 2.5rem;
+  --hoc-line-height-4xl-desktop: 3rem;
+  --hoc-line-height-5xl-desktop: 3.5rem;
+
+  /* ---------- LETTER SPACING (Mobile & Tablet) ---------- */
+  /* Negative letter spacing that scales proportionally */
+  --hoc-letter-xs-mobile: -0.01rem;
+  --hoc-letter-sm-mobile: -0.013rem;       /* matches example 1 */
+  --hoc-letter-base-mobile: -0.013rem;
+  --hoc-letter-md-mobile: -0.019rem;
+  --hoc-letter-lg-mobile: -0.025rem;
+  --hoc-letter-xl-mobile: -0.044rem;       /* matches example 2 */
+  --hoc-letter-2xl-mobile: -0.063rem;      /* matches example 3 */
+  --hoc-letter-3xl-mobile: -0.075rem;
+  --hoc-letter-4xl-mobile: -0.088rem;
+  --hoc-letter-5xl-mobile: -0.1rem;
+
+  /* ---------- LETTER SPACING (Desktop) ---------- */
+  --hoc-letter-xs-desktop: -0.013rem;
+  --hoc-letter-sm-desktop: -0.025rem;      /* matches example 1 */
+  --hoc-letter-base-desktop: -0.025rem;
+  --hoc-letter-md-desktop: -0.031rem;
+  --hoc-letter-lg-desktop: -0.038rem;
+  --hoc-letter-xl-desktop: -0.063rem;      /* matches example 2 */
+  --hoc-letter-2xl-desktop: -0.075rem;     /* matches example 3 */
+  --hoc-letter-3xl-desktop: -0.088rem;
+  --hoc-letter-4xl-desktop: -0.1rem;
+  --hoc-letter-5xl-desktop: -0.113rem;
+
+  /* ---------- DEFAULT VALUES (Mobile/Tablet first) ---------- */
+  --hoc-font-size-xs: var(--hoc-font-size-xs-mobile);
+  --hoc-font-size-sm: var(--hoc-font-size-sm-mobile);
+  --hoc-font-size-base: var(--hoc-font-size-base-mobile);
+  --hoc-font-size-md: var(--hoc-font-size-md-mobile);
+  --hoc-font-size-lg: var(--hoc-font-size-lg-mobile);
+  --hoc-font-size-xl: var(--hoc-font-size-xl-mobile);
+  --hoc-font-size-2xl: var(--hoc-font-size-2xl-mobile);
+  --hoc-font-size-3xl: var(--hoc-font-size-3xl-mobile);
+  --hoc-font-size-4xl: var(--hoc-font-size-4xl-mobile);
+  --hoc-font-size-5xl: var(--hoc-font-size-5xl-mobile);
+
+  --hoc-line-height-xs: var(--hoc-line-height-xs-mobile);
+  --hoc-line-height-sm: var(--hoc-line-height-sm-mobile);
+  --hoc-line-height-base: var(--hoc-line-height-base-mobile);
+  --hoc-line-height-md: var(--hoc-line-height-md-mobile);
+  --hoc-line-height-lg: var(--hoc-line-height-lg-mobile);
+  --hoc-line-height-xl: var(--hoc-line-height-xl-mobile);
+  --hoc-line-height-2xl: var(--hoc-line-height-2xl-mobile);
+  --hoc-line-height-3xl: var(--hoc-line-height-3xl-mobile);
+  --hoc-line-height-4xl: var(--hoc-line-height-4xl-mobile);
+  --hoc-line-height-5xl: var(--hoc-line-height-5xl-mobile);
+
+  --hoc-letter-xs: var(--hoc-letter-xs-mobile);
+  --hoc-letter-sm: var(--hoc-letter-sm-mobile);
+  --hoc-letter-base: var(--hoc-letter-base-mobile);
+  --hoc-letter-md: var(--hoc-letter-md-mobile);
+  --hoc-letter-lg: var(--hoc-letter-lg-mobile);
+  --hoc-letter-xl: var(--hoc-letter-xl-mobile);
+  --hoc-letter-2xl: var(--hoc-letter-2xl-mobile);
+  --hoc-letter-3xl: var(--hoc-letter-3xl-mobile);
+  --hoc-letter-4xl: var(--hoc-letter-4xl-mobile);
+  --hoc-letter-5xl: var(--hoc-letter-5xl-mobile);
+
+  /* ---------- LEGACY TOKENS (for backward compatibility) ---------- */
   --hoc-line-height-tight: 1.1;
   --hoc-line-height-snug: 1.25;
   --hoc-line-height-normal: 1.45;
   --hoc-line-height-relaxed: 1.6;
 
-  /* ---------- LETTER SPACING ---------- */
   --hoc-letter-tight: -0.01em;
   --hoc-letter-normal: 0;
   --hoc-letter-wide: 0.05em;
+}
+
+/* ============================
+   DESKTOP OVERRIDES (1024px+)
+   ============================ */
+@media (min-width: 1024px) {
+  :root {
+    --hoc-font-size-xs: var(--hoc-font-size-xs-desktop);
+    --hoc-font-size-sm: var(--hoc-font-size-sm-desktop);
+    --hoc-font-size-base: var(--hoc-font-size-base-desktop);
+    --hoc-font-size-md: var(--hoc-font-size-md-desktop);
+    --hoc-font-size-lg: var(--hoc-font-size-lg-desktop);
+    --hoc-font-size-xl: var(--hoc-font-size-xl-desktop);
+    --hoc-font-size-2xl: var(--hoc-font-size-2xl-desktop);
+    --hoc-font-size-3xl: var(--hoc-font-size-3xl-desktop);
+    --hoc-font-size-4xl: var(--hoc-font-size-4xl-desktop);
+    --hoc-font-size-5xl: var(--hoc-font-size-5xl-desktop);
+
+    --hoc-line-height-xs: var(--hoc-line-height-xs-desktop);
+    --hoc-line-height-sm: var(--hoc-line-height-sm-desktop);
+    --hoc-line-height-base: var(--hoc-line-height-base-desktop);
+    --hoc-line-height-md: var(--hoc-line-height-md-desktop);
+    --hoc-line-height-lg: var(--hoc-line-height-lg-desktop);
+    --hoc-line-height-xl: var(--hoc-line-height-xl-desktop);
+    --hoc-line-height-2xl: var(--hoc-line-height-2xl-desktop);
+    --hoc-line-height-3xl: var(--hoc-line-height-3xl-desktop);
+    --hoc-line-height-4xl: var(--hoc-line-height-4xl-desktop);
+    --hoc-line-height-5xl: var(--hoc-line-height-5xl-desktop);
+
+    --hoc-letter-xs: var(--hoc-letter-xs-desktop);
+    --hoc-letter-sm: var(--hoc-letter-sm-desktop);
+    --hoc-letter-base: var(--hoc-letter-base-desktop);
+    --hoc-letter-md: var(--hoc-letter-md-desktop);
+    --hoc-letter-lg: var(--hoc-letter-lg-desktop);
+    --hoc-letter-xl: var(--hoc-letter-xl-desktop);
+    --hoc-letter-2xl: var(--hoc-letter-2xl-desktop);
+    --hoc-letter-3xl: var(--hoc-letter-3xl-desktop);
+    --hoc-letter-4xl: var(--hoc-letter-4xl-desktop);
+    --hoc-letter-5xl: var(--hoc-letter-5xl-desktop);
+  }
 }
 
 /* ============================
@@ -43,7 +187,8 @@ body {
   font-family: var(--hoc-font-sans);
   font-size: var(--hoc-font-size-base);
   font-weight: var(--hoc-font-weight-regular);
-  line-height: var(--hoc-line-height-normal);
+  line-height: var(--hoc-line-height-base);
+  letter-spacing: var(--hoc-letter-base);
   color: var(--hoc-text-default);
   -webkit-font-smoothing: antialiased;
 }
@@ -51,50 +196,55 @@ body {
 /* ---------- HEADINGS ---------- */
 
 h1, .hoc-h1 {
-  font-size: var(--hoc-font-size-3xl);
-  line-height: var(--hoc-line-height-tight);
+  font-size: var(--hoc-font-size-5xl);
+  line-height: var(--hoc-line-height-5xl);
   font-weight: var(--hoc-font-weight-bold);
-  letter-spacing: var(--hoc-letter-tight);
+  letter-spacing: var(--hoc-letter-5xl);
   color: var(--hoc-text-default);
   margin-bottom: 0.75em;
 }
 
 h2, .hoc-h2 {
-  font-size: var(--hoc-font-size-2xl);
-  line-height: var(--hoc-line-height-snug);
+  font-size: var(--hoc-font-size-4xl);
+  line-height: var(--hoc-line-height-4xl);
   font-weight: var(--hoc-font-weight-semibold);
+  letter-spacing: var(--hoc-letter-4xl);
   color: var(--hoc-text-default);
   margin-bottom: 0.6em;
 }
 
 h3, .hoc-h3 {
-  font-size: var(--hoc-font-size-xl);
-  line-height: var(--hoc-line-height-normal);
+  font-size: var(--hoc-font-size-3xl);
+  line-height: var(--hoc-line-height-3xl);
   font-weight: var(--hoc-font-weight-semibold);
+  letter-spacing: var(--hoc-letter-3xl);
   color: var(--hoc-text-default);
   margin-bottom: 0.5em;
 }
 
 h4, .hoc-h4 {
-  font-size: var(--hoc-font-size-lg);
-  line-height: var(--hoc-line-height-normal);
+  font-size: var(--hoc-font-size-2xl);
+  line-height: var(--hoc-line-height-2xl);
   font-weight: var(--hoc-font-weight-medium);
+  letter-spacing: var(--hoc-letter-2xl);
   color: var(--hoc-text-default);
   margin-bottom: 0.5em;
 }
 
 h5, .hoc-h5 {
-  font-size: var(--hoc-font-size-md);
-  line-height: var(--hoc-line-height-normal);
+  font-size: var(--hoc-font-size-xl);
+  line-height: var(--hoc-line-height-xl);
   font-weight: var(--hoc-font-weight-semibold);
+  letter-spacing: var(--hoc-letter-xl);
   color: var(--hoc-text-secondary);
   margin-bottom: 0.4em;
 }
 
 h6, .hoc-h6 {
-  font-size: var(--hoc-font-size-sm);
-  line-height: var(--hoc-line-height-normal);
+  font-size: var(--hoc-font-size-lg);
+  line-height: var(--hoc-line-height-lg);
   font-weight: var(--hoc-font-weight-medium);
+  letter-spacing: var(--hoc-letter-lg);
   color: var(--hoc-text-secondary);
   margin-bottom: 0.4em;
 }
@@ -103,7 +253,8 @@ h6, .hoc-h6 {
 
 p, .hoc-body {
   font-size: var(--hoc-font-size-md);
-  line-height: var(--hoc-line-height-relaxed);
+  line-height: var(--hoc-line-height-md);
+  letter-spacing: var(--hoc-letter-md);
   color: var(--hoc-text-default);
   margin-bottom: 1em;
 }
@@ -112,14 +263,17 @@ p, .hoc-body {
 
 .hoc-label {
   font-size: var(--hoc-font-size-sm);
+  line-height: var(--hoc-line-height-sm);
   font-weight: var(--hoc-font-weight-semibold);
+  letter-spacing: var(--hoc-letter-sm);
   text-transform: uppercase;
-  letter-spacing: var(--hoc-letter-wide);
   color: var(--hoc-text-secondary);
 }
 
 .hoc-small {
-  font-size: var(--hoc-font-size-sm);
+  font-size: var(--hoc-font-size-xs);
+  line-height: var(--hoc-line-height-xs);
+  letter-spacing: var(--hoc-letter-xs);
   color: var(--hoc-text-secondary);
 }
 
@@ -133,9 +287,126 @@ a:hover {
   color: var(--hoc-bg-button-primary);
 }
 
-/* ---------- RESPONSIVE TYPE SCALE ---------- */
-@media (min-width: 768px) {
-  h1, .hoc-h1 { font-size: 3.5rem; }
-  h2, .hoc-h2 { font-size: 2.5rem; }
-  h3, .hoc-h3 { font-size: 1.75rem; }
+/* ============================
+   📦 TYPOGRAPHY UTILITY CLASSES
+   Responsive scaling system
+   ============================ */
+
+/* ---------- SIZE UTILITIES ---------- */
+.hoc-text-xs {
+  font-size: var(--hoc-font-size-xs);
+  line-height: var(--hoc-line-height-xs);
+  letter-spacing: var(--hoc-letter-xs);
+}
+
+.hoc-text-sm {
+  font-size: var(--hoc-font-size-sm);
+  line-height: var(--hoc-line-height-sm);
+  letter-spacing: var(--hoc-letter-sm);
+}
+
+.hoc-text-base {
+  font-size: var(--hoc-font-size-base);
+  line-height: var(--hoc-line-height-base);
+  letter-spacing: var(--hoc-letter-base);
+}
+
+.hoc-text-md {
+  font-size: var(--hoc-font-size-md);
+  line-height: var(--hoc-line-height-md);
+  letter-spacing: var(--hoc-letter-md);
+}
+
+.hoc-text-lg {
+  font-size: var(--hoc-font-size-lg);
+  line-height: var(--hoc-line-height-lg);
+  letter-spacing: var(--hoc-letter-lg);
+}
+
+.hoc-text-xl {
+  font-size: var(--hoc-font-size-xl);
+  line-height: var(--hoc-line-height-xl);
+  letter-spacing: var(--hoc-letter-xl);
+}
+
+.hoc-text-2xl {
+  font-size: var(--hoc-font-size-2xl);
+  line-height: var(--hoc-line-height-2xl);
+  letter-spacing: var(--hoc-letter-2xl);
+}
+
+.hoc-text-3xl {
+  font-size: var(--hoc-font-size-3xl);
+  line-height: var(--hoc-line-height-3xl);
+  letter-spacing: var(--hoc-letter-3xl);
+}
+
+.hoc-text-4xl {
+  font-size: var(--hoc-font-size-4xl);
+  line-height: var(--hoc-line-height-4xl);
+  letter-spacing: var(--hoc-letter-4xl);
+}
+
+.hoc-text-5xl {
+  font-size: var(--hoc-font-size-5xl);
+  line-height: var(--hoc-line-height-5xl);
+  letter-spacing: var(--hoc-letter-5xl);
+}
+
+/* ---------- WEIGHT UTILITIES ---------- */
+.hoc-font-regular {
+  font-weight: var(--hoc-font-weight-regular);
+}
+
+.hoc-font-medium {
+  font-weight: var(--hoc-font-weight-medium);
+}
+
+.hoc-font-semibold {
+  font-weight: var(--hoc-font-weight-semibold);
+}
+
+.hoc-font-bold {
+  font-weight: var(--hoc-font-weight-bold);
+}
+
+/* ---------- TRANSFORM UTILITIES ---------- */
+.hoc-uppercase {
+  text-transform: uppercase;
+}
+
+.hoc-lowercase {
+  text-transform: lowercase;
+}
+
+.hoc-capitalize {
+  text-transform: capitalize;
+}
+
+/* ---------- COMBINED UTILITIES (for common patterns) ---------- */
+/* Label style with responsive scaling */
+.hoc-label-responsive {
+  font-size: var(--hoc-font-size-sm);
+  line-height: var(--hoc-line-height-sm);
+  letter-spacing: var(--hoc-letter-sm);
+  font-weight: var(--hoc-font-weight-semibold);
+  text-transform: uppercase;
+  color: var(--hoc-text-secondary);
+}
+
+/* Display text style */
+.hoc-display {
+  font-size: var(--hoc-font-size-5xl);
+  line-height: var(--hoc-line-height-5xl);
+  letter-spacing: var(--hoc-letter-5xl);
+  font-weight: var(--hoc-font-weight-bold);
+  color: var(--hoc-text-default);
+}
+
+/* Caption style */
+.hoc-caption {
+  font-size: var(--hoc-font-size-xs);
+  line-height: var(--hoc-line-height-xs);
+  letter-spacing: var(--hoc-letter-xs);
+  color: var(--hoc-text-secondary);
 }

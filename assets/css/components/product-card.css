@@ -2,121 +2,229 @@
    🧃 PRODUCT CARD — Haus of Crunch
    ===================================== */
 
-   .hoc-product-card {
-    list-style: none;
-    display: block; /* Ensure it's not creating a grid */
-  }
-  
-  .hoc-product-card__link {
-    display: flex;
-    flex-direction: column;
-    text-decoration: none;
-    color: inherit;
-    border: 1px solid var(--hoc-border-default);
-    border-radius: var(--hoc-radius-lg);
-    overflow: hidden;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-    width: 100%;
-    height: 100%;
-  }
-  
-  .hoc-product-card__link:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  }
-  
-  /* Image */
-  .hoc-product-card__image-wrapper {
-    position: relative;
-    aspect-ratio: 3 / 4;
-    background-color: var(--hoc-bg-secondary);
-    overflow: hidden;
-    display: block;
-    width: 100%;
-  }
-  
-  /* Target all images directly or nested - absolute positioning to fill container */
-  .hoc-product-card__image-wrapper img,
-  .hoc-product-card__image-wrapper img.wp-post-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    object-position: center;
-    display: block;
-  }
-  
-  /* Ensure WooCommerce elements inside image wrapper fill container */
-  .hoc-product-card__image-wrapper > * {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-  
-  /* Ensure anchor tags fill the container */
-  .hoc-product-card__image-wrapper a {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-  
-  .hoc-product-card__image-wrapper a img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    object-position: center;
-  }
-  
-  /* Sale flash badge positioning */
-  .hoc-product-card__image-wrapper .onsale {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    display: block;
-    width: auto;
-    height: auto;
-  }
-  
-  /* Content */
+.hoc-product-card {
+  list-style: none;
+  display: block; /* Ensure it's not creating a grid */
+}
+
+/* --- Link Wrapper --- */
+.hoc-product-card__link {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  border: none;
+  border-radius: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.hoc-product-card__link:focus-visible {
+  outline: 2px solid var(--hoc-bg-button-primary);
+  outline-offset: 2px;
+}
+
+/* --- Image Wrapper --- */
+.hoc-product-card__image-wrapper {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  background-color: var(--hoc-bg-default);
+  overflow: hidden;
+  display: block;
+  width: 100%;
+}
+
+.hoc-product-card__image-wrapper img,
+.hoc-product-card__image-wrapper img.wp-post-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.hoc-product-card__image-wrapper > * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hoc-product-card__image-wrapper a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hoc-product-card__image-wrapper a img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* --- Sale Flash Badge --- */
+.hoc-product-card__image-wrapper .onsale {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: block;
+  width: auto;
+  height: auto;
+}
+
+/* --- Content (Price + Title) --- */
+.hoc-product-card__content {
+  display: grid;
+  grid-template-columns: minmax(0, 40%) minmax(0, 60%);
+  gap: 8px;
+  padding: var(--hoc-space-md);
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* --- Price --- */
+.hoc-product-card__price {
+  font-size: var(--hoc-font-size-base);
+  line-height: var(--hoc-line-height-base);
+  letter-spacing: var(--hoc-letter-base);
+  color: var(--hoc-text-default);
+  font-weight: var(--hoc-font-weight-regular);
+  font-family: var(--hoc-font-sans);
+  white-space: normal;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  overflow: hidden;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.hoc-product-card__price .price {
+  font-size: var(--hoc-font-size-base);
+  line-height: var(--hoc-line-height-base);
+  letter-spacing: var(--hoc-letter-base);
+  color: var(--hoc-text-default);
+  font-weight: var(--hoc-font-weight-regular);
+  font-family: var(--hoc-font-sans);
+  display: block;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+.hoc-product-card__price .price del {
+  font-size: var(--hoc-font-size-base);
+  line-height: var(--hoc-line-height-base);
+  letter-spacing: var(--hoc-letter-base);
+  opacity: 0.6;
+  text-decoration: line-through;
+}
+
+.hoc-product-card__price .price ins {
+  font-size: var(--hoc-font-size-base);
+  line-height: var(--hoc-line-height-base);
+  letter-spacing: var(--hoc-letter-base);
+  text-decoration: none;
+}
+
+/* --- Title (Fixed Overflow) --- */
+.hoc-product-card__title,
+.hoc-product-card__content h2.hoc-product-card__title {
+  margin: 0 !important;
+  padding: 0 !important;
+
+  font-size: var(--hoc-font-size-base) !important;
+  line-height: var(--hoc-line-height-base) !important;
+  letter-spacing: var(--hoc-letter-base) !important;
+  color: var(--hoc-text-default) !important;
+  font-weight: var(--hoc-font-weight-regular) !important;
+  font-family: var(--hoc-font-sans) !important;
+  text-transform: uppercase !important;
+  text-align: left !important;
+
+  display: block;
+  box-sizing: border-box;
+  min-width: 0;
+  width: 100%;
+
+  /* ✅ Overflow Fix */
+  overflow: hidden;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+  max-width: 100%;
+}
+
+/* --- Mobile / Tablet --- */
+@media (max-width: 1023px) {
   .hoc-product-card__content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--hoc-space-xs);
-    padding: var(--hoc-space-md);
-  }
-  
-  .hoc-product-card__brand {
-    font-size: var(--hoc-font-size-md);
-    color: var(--hoc-text-secondary);
-    font-weight: var(--hoc-font-weight-regular);
-    text-transform: uppercase;
-    line-height: 1;
-  }
-  
-  .hoc-product-card__title {
-    font-size: var(--hoc-font-size-md);
-    color: var(--hoc-text-default);
-    font-weight: var(--hoc-font-weight-regular);
-    text-transform: uppercase;
-    line-height: 1;
-  }
-  
-  .hoc-product-card__price {
-    font-size: var(--hoc-font-size-md);
-    color: var(--hoc-text-default);
-    font-weight: var(--hoc-font-weight-regular);
-    line-height: 1;
+    gap: 8px;
+    padding: var(--hoc-space-sm);
   }
 
+  .hoc-product-card__price {
+    white-space: normal;
+  }
+
+  .hoc-product-card__price .price {
+    display: block;
+    line-height: var(--hoc-line-height-base);
+    word-break: break-word;
+    white-space: normal;
+  }
+
+  /* Break currency and price on separate lines */
+  .hoc-product-card__price .woocommerce-Price-amount {
+    display: block;
+    white-space: pre-line;
+  }
+
+  .hoc-product-card__price .woocommerce-Price-currencySymbol {
+    display: block;
+    line-height: var(--hoc-line-height-base);
+  }
+
+  /* Insert line break after currency symbol */
+  .hoc-product-card__price .woocommerce-Price-currencySymbol::after {
+    content: '\A';
+    white-space: pre;
+  }
+
+  .hoc-product-card__title {
+    text-align: left !important;
+    margin: 0;
+    padding: 0;
+    display: block;
+    box-sizing: border-box;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+  }
+}
+
+/* --- Desktop --- */
+@media (min-width: 1024px) {
+  .hoc-product-card__content {
+    gap: 8px;
+    padding: var(--hoc-space-md);
+  }
+}

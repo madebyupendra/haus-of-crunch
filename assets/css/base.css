@@ -29,7 +29,8 @@ body {
   color: var(--hoc-text-default);
   font-family: var(--hoc-font-sans);
   font-size: var(--hoc-font-size-base);
-  line-height: var(--hoc-line-height-normal);
+  line-height: var(--hoc-line-height-base);
+  letter-spacing: var(--hoc-letter-base);
   font-weight: var(--hoc-font-weight-regular);
 }
 
@@ -89,7 +90,7 @@ a:hover {
   padding-block: var(--hoc-space-2xl);
 }
 
-@media (min-width: var(--hoc-breakpoint-md)) {
+@media (min-width: 641px) {
   .hoc-section {
     padding-block: var(--hoc-space-3xl);
   }

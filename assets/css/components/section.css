@@ -6,7 +6,7 @@
     padding-block: var(--hoc-space-3xl);
   }
   
-  @media (min-width: var(--hoc-breakpoint-md)) {
+  @media (min-width: 641px) {
     .hoc-section {
       padding-block: var(--hoc-space-4xl);
     }

@@ -27,7 +27,7 @@
 }
 
 /* Tablet: 3 columns, Column gap 16px, Row gap 32px */
-@media (min-width: 768px) {
+@media (min-width: 641px) and (max-width: 1023px) {
   .hoc-product-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 32px 16px; /* row-gap column-gap */

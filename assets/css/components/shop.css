@@ -15,9 +15,10 @@
   background: var(--hoc-bg-default);
   border: 1px solid var(--hoc-border-default);
   font-size: var(--hoc-font-size-base);
+  line-height: var(--hoc-line-height-base);
+  letter-spacing: var(--hoc-letter-base);
   font-weight: var(--hoc-font-weight-medium);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
   color: var(--hoc-text-default);
   cursor: pointer;
   margin-bottom: 1.5rem;
@@ -32,7 +33,7 @@
   border-color: var(--hoc-text-default);
 }
 
-@media (max-width: 767px) {
+@media (max-width: 640px) {
   .hoc-filter-toggle {
     display: block;
   }
@@ -57,7 +58,7 @@
 }
 
 /* Mobile: Stack layout */
-@media (max-width: 767px) {
+@media (max-width: 640px) {
   .hoc-shop-layout {
     grid-template-columns: 1fr;
     gap: 2rem;
@@ -70,7 +71,7 @@
 }
 
 /* Tablet: Smaller gap */
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 641px) and (max-width: 1023px) {
   .hoc-shop-layout {
     grid-template-columns: 200px 1fr;
     gap: 2rem;

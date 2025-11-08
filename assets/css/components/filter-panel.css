@@ -20,13 +20,13 @@
 /* Section Titles */
 .hoc-filter-panel__title {
   font-size: var(--hoc-font-size-base);
+  line-height: var(--hoc-line-height-base);
+  letter-spacing: var(--hoc-letter-base);
   font-weight: var(--hoc-font-weight-bold);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
   color: var(--hoc-text-default);
   margin-bottom: 8px;
   padding: 0;
-  line-height: 1.2;
 }
 
 /* List styles for COLLECTIONS and BRAND */
@@ -43,16 +43,16 @@
 
 .hoc-filter-panel__link {
   display: block;
-  font-size: var(--hoc-font-size-sm);
+  font-size: var(--hoc-font-size-base);
+  line-height: var(--hoc-line-height-base);
+  letter-spacing: var(--hoc-letter-base);
   font-weight: var(--hoc-font-weight-regular);
   color: var(--hoc-text-default);
   text-decoration: none;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
   padding-left: 16px;
   padding-bottom: 0px;
   transition: color 0.2s ease;
-  line-height: 1;
 }
 
 .hoc-filter-panel__link:hover {
@@ -91,15 +91,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--hoc-font-size-sm);
+  font-size: var(--hoc-font-size-base);
+  line-height: var(--hoc-line-height-base);
+  letter-spacing: var(--hoc-letter-base);
   font-weight: var(--hoc-font-weight-regular);
   color: var(--hoc-text-default);
   text-decoration: none;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
   padding: 0.5rem 0.25rem;
   transition: color 0.2s ease, background-color 0.2s ease;
-  line-height: 1;
   text-align: center;
   min-height: 2.5rem;
 }
@@ -117,12 +117,13 @@
 /* Clear Filters */
 .hoc-filter-panel__clear {
   display: inline-block;
-  font-size: var(--hoc-font-size-sm);
+  font-size: var(--hoc-font-size-base);
+  line-height: var(--hoc-line-height-base);
+  letter-spacing: var(--hoc-letter-base);
   font-weight: var(--hoc-font-weight-medium);
   color: var(--hoc-text-secondary);
   text-decoration: underline;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
   padding: 0.5rem 0;
   transition: color 0.2s ease;
 }
@@ -132,7 +133,7 @@
 }
 
 /* Mobile: Hide filter panel by default, show toggle button */
-@media (max-width: 767px) {
+@media (max-width: 640px) {
   .hoc-filter-panel {
     display: none;
     position: fixed;
@@ -158,7 +159,7 @@
 }
 
 /* Tablet and Desktop: Always visible sidebar */
-@media (min-width: 768px) {
+@media (min-width: 641px) {
   .hoc-filter-panel {
     display: block;
     max-width: 240px;

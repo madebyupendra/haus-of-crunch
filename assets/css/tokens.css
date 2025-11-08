@@ -103,11 +103,12 @@
   }
   
   /* ---------- BREAKPOINTS ---------- */
-  /* Matches typical modern responsive breakpoints */
+  /* Mobile (0–640px), Tablet (641–1023px), Desktop (1024px+) */
   :root {
-	--hoc-breakpoint-md: 768px;   /* Tablet */
-    --hoc-breakpoint-lg: 1024px;  /* Desktop */
-    --hoc-breakpoint-xl: 1280px;  /* Optional large desktop */
+	--hoc-breakpoint-mobile-max: 640px;   /* Mobile max-width */
+    --hoc-breakpoint-tablet-min: 641px;  /* Tablet min-width */
+    --hoc-breakpoint-tablet-max: 1023px;  /* Tablet max-width */
+    --hoc-breakpoint-desktop: 1024px;     /* Desktop min-width */
   }
   
   }
