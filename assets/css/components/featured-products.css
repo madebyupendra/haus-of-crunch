@@ -1,0 +1,146 @@
+/* =====================================
+   FEATURED PRODUCTS COMPONENT — Haus of Crunch
+   ===================================== */
+
+.hoc-featured-products {
+    width: 100%;
+    margin-bottom: var(--hoc-space-2xl);
+}
+
+/* Section Header */
+.hoc-featured-products__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--hoc-space-xl);
+    padding: 0;
+}
+
+.hoc-featured-products__title {
+    font-size: var(--hoc-font-size-xl);
+    line-height: var(--hoc-line-height-xl);
+    letter-spacing: var(--hoc-letter-xl);
+    font-weight: var(--hoc-font-weight-regular);
+    color: var(--hoc-text-default);
+    margin: 0;
+    text-transform: uppercase;
+}
+
+/* Navigation Arrows */
+.hoc-featured-products__navigation {
+    display: flex;
+    gap: 8px;
+}
+
+/* Hide navigation on mobile */
+@media (max-width: 640px) {
+    .hoc-featured-products__navigation {
+        display: none;
+    }
+}
+
+.hoc-featured-products__arrow {
+    background: transparent;
+    border: 1px solid var(--hoc-border-divider);
+    border-radius: var(--hoc-radius-md);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    color: var(--hoc-text-default);
+    transition: all 0.2s ease;
+}
+
+.hoc-featured-products__arrow:hover {
+    background-color: var(--hoc-bg-button-primary);
+    border-color: var(--hoc-bg-button-primary);
+    color: #ffffff;
+}
+
+.hoc-featured-products__arrow:active {
+    background-color: var(--hoc-bg-button-primary-active);
+    border-color: var(--hoc-bg-button-primary-active);
+}
+
+.hoc-featured-products__arrow:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.hoc-featured-products__arrow svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+
+/* Product Grid Wrapper */
+.hoc-featured-products__wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Mobile: Regular grid (2 columns, no carousel) */
+.hoc-featured-products__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 8px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    transition: none;
+    transform: none;
+}
+
+/* Tablet: 3 columns carousel */
+@media (min-width: 641px) and (max-width: 1023px) {
+    .hoc-featured-products__grid {
+        display: flex;
+        grid-template-columns: none;
+        gap: 0;
+        transition: transform 0.3s ease;
+        will-change: transform;
+    }
+    
+    .hoc-featured-products__grid .hoc-product-card {
+        flex: 0 0 calc((100% - 16px) / 3);
+        min-width: 0;
+        margin-right: 8px;
+    }
+    
+    .hoc-featured-products__grid .hoc-product-card:last-child {
+        margin-right: 0;
+    }
+}
+
+/* Desktop: 4 columns carousel */
+@media (min-width: 1024px) {
+    .hoc-featured-products__grid {
+        display: flex;
+        grid-template-columns: none;
+        gap: 0;
+        transition: transform 0.3s ease;
+        will-change: transform;
+    }
+    
+    .hoc-featured-products__grid .hoc-product-card {
+        flex: 0 0 calc((100% - 24px) / 4);
+        min-width: 0;
+        margin-right: 8px;
+    }
+    
+    .hoc-featured-products__grid .hoc-product-card:last-child {
+        margin-right: 0;
+    }
+}
+
+/* Ensure product cards work in carousel */
+.hoc-featured-products__grid .hoc-product-card {
+    display: block;
+    width: 100%;
+}
+

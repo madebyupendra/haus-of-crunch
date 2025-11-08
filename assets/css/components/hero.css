@@ -1,0 +1,99 @@
+/* =====================================
+   HERO COMPONENT — Haus of Crunch
+   ===================================== */
+
+/* Mobile: Full width by breaking out of container */
+@media (max-width: 640px) {
+    /* Reset container padding for hero on mobile */
+    .hoc-hero-container {
+        padding-left: 0;
+        padding-right: 0;
+        max-width: 100%;
+    }
+    
+    /* Full width hero on mobile */
+    .hoc-hero-container .hoc-hero {
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        max-width: 100vw;
+    }
+}
+
+.hoc-hero {
+    width: 100%;
+    margin-bottom: var(--hoc-space-2xl);
+}
+
+.hoc-hero__image-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    /* 18:9 aspect ratio for desktop and tablet */
+    aspect-ratio: 18 / 9;
+    background-color: var(--hoc-bg-secondary);
+}
+
+/* 2:3 aspect ratio for mobile */
+@media (max-width: 640px) {
+    .hoc-hero__image-wrapper {
+        aspect-ratio: 2 / 3;
+    }
+}
+
+.hoc-hero__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.hoc-hero__content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 16px; /* 16px for mobile */
+}
+
+.hoc-hero__content--no-image {
+    position: static;
+    padding: 16px; /* 16px for mobile */
+}
+
+/* 24px padding for tablet and desktop */
+@media (min-width: 641px) {
+    .hoc-hero__content {
+        padding: 24px; /* 24px for tablet and desktop */
+    }
+
+    .hoc-hero__content--no-image {
+        padding: 24px; /* 24px for tablet and desktop */
+    }
+}
+
+.hoc-hero__title {
+    font-size: var(--hoc-font-size-2xl);
+    line-height: var(--hoc-line-height-2xl);
+    letter-spacing: var(--hoc-letter-2xl);
+    font-weight: var(--hoc-font-weight-regular);
+    color: #ffffff;
+    margin: 0;
+}
+
+.hoc-hero__title-link {
+    text-decoration: none;
+    display: inline-block;
+    transition: opacity 0.2s ease;
+}
+
+.hoc-hero__title-link:hover {
+    opacity: 0.8;
+}
+
+.hoc-hero__title-link .hoc-hero__title {
+    color: #ffffff;
+}
+

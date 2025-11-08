@@ -31,10 +31,54 @@
 .hoc-product-card__image-wrapper {
   position: relative;
   aspect-ratio: 4 / 5;
-  background-color: var(--hoc-bg-default);
+  background-color: var(--hoc-bg-secondary);
   overflow: hidden;
   display: block;
   width: 100%;
+}
+
+/* --- Shimmer Effect --- */
+.hoc-product-card__shimmer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--hoc-bg-secondary) 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    var(--hoc-bg-secondary) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hoc-product-card__image-wrapper img {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.hoc-product-card__image-wrapper img.loaded {
+  opacity: 1;
+}
+
+.hoc-product-card__image-wrapper:has(img.loaded) .hoc-product-card__shimmer,
+.hoc-product-card__image-wrapper img.loaded ~ .hoc-product-card__shimmer {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 .hoc-product-card__image-wrapper img,

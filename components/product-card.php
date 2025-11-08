@@ -23,6 +23,7 @@ if (empty($product) || !is_a($product, 'WC_Product') || !$product->is_visible())
   <a href="<?php the_permalink(); ?>" class="hoc-product-card__link">
 
     <div class="hoc-product-card__image-wrapper">
+      <div class="hoc-product-card__shimmer"></div>
       <?php
       /**
        * Default WooCommerce product image

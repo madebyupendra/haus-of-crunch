@@ -1,0 +1,107 @@
+/* =====================================
+   CATEGORY HIGHLIGHTS COMPONENT — Haus of Crunch
+   ===================================== */
+
+.hoc-category-highlights {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    width: 100%;
+}
+
+/* Mobile: Stack columns vertically, full width */
+@media (max-width: 640px) {
+    .hoc-category-highlights {
+        grid-template-columns: 1fr;
+    }
+}
+
+.hoc-category-highlights__column {
+    width: 100%;
+    position: relative;
+}
+
+.hoc-category-highlights__link {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    color: inherit;
+}
+
+.hoc-category-highlights__image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background-color: var(--hoc-bg-secondary);
+}
+
+.hoc-category-highlights__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.hoc-category-highlights__link:hover .hoc-category-highlights__image {
+    transform: scale(1.05);
+}
+
+.hoc-category-highlights__placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--hoc-bg-secondary);
+    color: var(--hoc-text-secondary);
+    font-size: var(--hoc-font-size-lg);
+    padding: 16px;
+    text-align: center;
+}
+
+.hoc-category-highlights__content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 16px; /* 16px for mobile */
+}
+
+/* 24px padding for tablet and desktop */
+@media (min-width: 641px) {
+    .hoc-category-highlights__content {
+        padding: 24px; /* 24px for tablet and desktop */
+    }
+}
+
+.hoc-category-highlights__title {
+    font-size: var(--hoc-font-size-2xl);
+    line-height: var(--hoc-line-height-2xl);
+    letter-spacing: var(--hoc-letter-2xl);
+    font-weight: var(--hoc-font-weight-regular);
+    color: #ffffff;
+    margin: 0;
+}
+
+/* Mobile: Full width by breaking out of container */
+@media (max-width: 640px) {
+    /* Reset container padding for category highlights on mobile */
+    .hoc-category-highlights-container {
+        padding-left: 0;
+        padding-right: 0;
+        max-width: 100%;
+    }
+    
+    /* Full width category highlights on mobile */
+    .hoc-category-highlights-container .hoc-category-highlights {
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        max-width: 100vw;
+    }
+}
+

@@ -116,7 +116,7 @@ if (function_exists('wc_get_attribute_taxonomies')) {
                     'name' => $attribute->attribute_name,
                     'taxonomy' => $taxonomy,
                     'terms' => $terms,
-                    'is_grid' => ($attribute->attribute_name === 'size'), // Size uses grid layout
+                    'is_grid' => false, // All attributes use list layout
                 );
             }
         }
@@ -199,64 +199,26 @@ foreach (array_keys($active_filters) as $key) {
     <?php foreach ($product_attributes as $attr_name => $attr_data) : 
         $filter_key = 'filter_' . $attr_data['taxonomy'];
         $current_value = isset($active_filters[$filter_key]) ? $active_filters[$filter_key] : '';
-        $is_grid = $attr_data['is_grid'];
     ?>
         <div class="hoc-filter-panel__section">
             <h3 class="hoc-filter-panel__title"><?php echo esc_html(strtoupper($attr_data['label'])); ?></h3>
             
-            <?php if ($is_grid) : ?>
-                <?php // Grid layout for SIZE ?>
-                <div class="hoc-filter-panel__grid">
-                    <?php foreach ($attr_data['terms'] as $term) : 
-                        $current_values = !empty($current_value) ? explode(',', $current_value) : array();
-                        $is_active = in_array($term->slug, $current_values);
-                        
-                        $filter_url = $current_url;
-                        if ($is_active) {
-                            $current_values = array_diff($current_values, array($term->slug));
-                            if (!empty($current_values)) {
-                                $filter_url = add_query_arg($filter_key, implode(',', $current_values), $filter_url);
-                            } else {
-                                $filter_url = remove_query_arg($filter_key, $filter_url);
-                            }
-                        } else {
-                            $current_values[] = $term->slug;
-                            $filter_url = add_query_arg($filter_key, implode(',', $current_values), $filter_url);
-                        }
-                        
-                        // Preserve other filters
-                        foreach ($active_filters as $key => $value) {
-                            if ($key !== $filter_key && !empty($value)) {
-                                $filter_url = add_query_arg($key, $value, $filter_url);
-                            }
-                        }
-                    ?>
+            <?php // List layout for all attributes ?>
+            <ul class="hoc-filter-panel__list">
+                <?php foreach ($attr_data['terms'] as $term) : 
+                    $is_active = $current_value === $term->slug;
+                    $filter_url = hoc_build_filter_url($current_url, $filter_key, $term->slug, $is_active);
+                ?>
+                    <li class="hoc-filter-panel__item">
                         <a href="<?php echo esc_url($filter_url); ?>" 
-                           class="hoc-filter-panel__size-link <?php echo $is_active ? 'is-active' : ''; ?>"
+                           class="hoc-filter-panel__link <?php echo $is_active ? 'is-active' : ''; ?>"
                            data-filter="<?php echo esc_attr($attr_name); ?>"
                            data-value="<?php echo esc_attr($term->slug); ?>">
                             <?php echo esc_html(strtoupper($term->name)); ?>
                         </a>
-                    <?php endforeach; ?>
-                </div>
-            <?php else : ?>
-                <?php // List layout for other attributes (COLOR, FLAVOR, etc.) ?>
-                <ul class="hoc-filter-panel__list">
-                    <?php foreach ($attr_data['terms'] as $term) : 
-                        $is_active = $current_value === $term->slug;
-                        $filter_url = hoc_build_filter_url($current_url, $filter_key, $term->slug, $is_active);
-                    ?>
-                        <li class="hoc-filter-panel__item">
-                            <a href="<?php echo esc_url($filter_url); ?>" 
-                               class="hoc-filter-panel__link <?php echo $is_active ? 'is-active' : ''; ?>"
-                               data-filter="<?php echo esc_attr($attr_name); ?>"
-                               data-value="<?php echo esc_attr($term->slug); ?>">
-                                <?php echo esc_html(strtoupper($term->name)); ?>
-                            </a>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php endif; ?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
         </div>
     <?php endforeach; ?>
 

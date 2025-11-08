@@ -31,12 +31,27 @@ function hoc_enqueue_assets() {
     wp_enqueue_style( 'hoc-variation-selector', $theme_dir . '/assets/css/components/variation-selector.css', ['hoc-tokens'], null );
     wp_enqueue_style( 'hoc-product-gallery', $theme_dir . '/assets/css/components/product-gallery.css', ['hoc-tokens'], null );
     wp_enqueue_style( 'hoc-product-accordion', $theme_dir . '/assets/css/components/product-accordion.css', ['hoc-tokens'], null );
+    wp_enqueue_style( 'hoc-hero', $theme_dir . '/assets/css/components/hero.css', ['hoc-tokens', 'hoc-typography'], null );
+    wp_enqueue_style( 'hoc-category-highlights', $theme_dir . '/assets/css/components/category-highlights.css', ['hoc-tokens', 'hoc-typography'], null );
+    wp_enqueue_style( 'hoc-featured-products', $theme_dir . '/assets/css/components/featured-products.css', ['hoc-tokens', 'hoc-typography', 'hoc-product-grid'], null );
 
     // Main stylesheet
     wp_enqueue_style( 'hoc-style', get_stylesheet_uri(), ['hoc-base'], '0.1' );
 
     // JS
     wp_enqueue_script( 'hoc-main', $theme_dir . '/assets/js/main.js', ['jquery'], '0.1', true );
+    
+    // Featured products carousel (only on front page)
+    if ( is_front_page() ) {
+        wp_enqueue_script( 'hoc-featured-products-carousel', $theme_dir . '/assets/js/featured-products-carousel.js', ['jquery'], '0.1', true );
+        // Also load lazy loading script for product images on front page
+        wp_enqueue_script( 'hoc-product-card-lazy', $theme_dir . '/assets/js/product-card-lazy.js', [], '0.1', true );
+    }
+    
+    // Product card lazy loading (only on shop/archive pages)
+    if ( is_shop() || is_product_category() || is_product_tag() || is_product_taxonomy() ) {
+        wp_enqueue_script( 'hoc-product-card-lazy', $theme_dir . '/assets/js/product-card-lazy.js', [], '0.1', true );
+    }
     
     // Variation selector JS (only on single product pages)
     if ( is_product() ) {
@@ -149,6 +164,39 @@ function hoc_woocommerce_get_image_size_thumbnail( $size ) {
     );
 }
 add_filter( 'woocommerce_get_image_size_thumbnail', 'hoc_woocommerce_get_image_size_thumbnail' );
+
+/**
+ * Add lazy loading to WooCommerce product images
+ */
+function hoc_add_lazy_loading_to_product_images( $attr, $attachment, $size ) {
+    // Only add lazy loading to shop/archive pages
+    // Front page featured products should load eagerly
+    if ( is_shop() || is_product_category() || is_product_tag() || is_product_taxonomy() ) {
+        $attr['loading'] = 'lazy';
+        $attr['decoding'] = 'async';
+    } elseif ( is_front_page() ) {
+        // Disable lazy loading on front page for featured products
+        $attr['loading'] = 'eager';
+    }
+    return $attr;
+}
+add_filter( 'wp_get_attachment_image_attributes', 'hoc_add_lazy_loading_to_product_images', 10, 3 );
+
+/**
+ * Add lazy loading to WooCommerce product loop images
+ * This ensures WooCommerce's product thumbnail function also gets lazy loading
+ */
+function hoc_add_lazy_loading_to_woocommerce_images( $html, $post_id ) {
+    // Only add lazy loading to shop/archive pages
+    if ( is_shop() || is_product_category() || is_product_tag() || is_product_taxonomy() ) {
+        // Add loading="lazy" if not already present
+        if ( strpos( $html, 'loading=' ) === false ) {
+            $html = str_replace( '<img', '<img loading="lazy" decoding="async"', $html );
+        }
+    }
+    return $html;
+}
+add_filter( 'woocommerce_product_get_image', 'hoc_add_lazy_loading_to_woocommerce_images', 10, 2 );
 
 /**
  * Enable WooCommerce layered nav filters for attribute filtering
@@ -553,3 +601,195 @@ function hoc_remove_default_brand_output() {
     add_filter( 'woocommerce_product_brands_output', '__return_empty_string', 999 );
 }
 add_action( 'init', 'hoc_remove_default_brand_output', 20 );
+
+/**
+ * WordPress Customizer - Home Page Hero Section
+ */
+function hoc_customize_register( $wp_customize ) {
+    // Add "Home Page" panel
+    $wp_customize->add_panel( 'hoc_home_page', array(
+        'title'    => __( 'Home Page', 'haus-of-crunch' ),
+        'priority' => 30,
+    ) );
+
+    // Add "Hero" section under Home Page panel
+    $wp_customize->add_section( 'hoc_hero', array(
+        'title'    => __( 'Hero', 'haus-of-crunch' ),
+        'panel'    => 'hoc_home_page',
+        'priority' => 10,
+    ) );
+
+    // Hero Image Setting
+    $wp_customize->add_setting( 'hoc_hero_image', array(
+        'default'           => '',
+        'sanitize_callback' => 'absint',
+        'transport'         => 'refresh',
+    ) );
+
+    // Hero Image Control
+    $wp_customize->add_control( new WP_Customize_Media_Control( $wp_customize, 'hoc_hero_image', array(
+        'label'       => __( 'Hero Image', 'haus-of-crunch' ),
+        'section'     => 'hoc_hero',
+        'mime_type'   => 'image',
+        'priority'    => 10,
+    ) ) );
+
+    // Hero Title Setting
+    $wp_customize->add_setting( 'hoc_hero_title', array(
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ) );
+
+    // Hero Title Control
+    $wp_customize->add_control( 'hoc_hero_title', array(
+        'label'    => __( 'Hero Text Title', 'haus-of-crunch' ),
+        'section'  => 'hoc_hero',
+        'type'     => 'text',
+        'priority' => 20,
+    ) );
+
+    // Hero Link Setting
+    $wp_customize->add_setting( 'hoc_hero_link', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+        'transport'         => 'refresh',
+    ) );
+
+    // Hero Link Control
+    $wp_customize->add_control( 'hoc_hero_link', array(
+        'label'       => __( 'Hero Title Link', 'haus-of-crunch' ),
+        'section'     => 'hoc_hero',
+        'type'        => 'url',
+        'priority'    => 30,
+        'description' => __( 'Optional: Add a URL to make the hero title clickable', 'haus-of-crunch' ),
+    ) );
+
+    // Add "Category Highlights" section under Home Page panel
+    $wp_customize->add_section( 'hoc_category_highlights', array(
+        'title'    => __( 'Category Highlights', 'haus-of-crunch' ),
+        'panel'    => 'hoc_home_page',
+        'priority' => 20,
+    ) );
+
+    // Get WooCommerce product categories for dropdown
+    $product_categories = array( '' => __( '— Select Category —', 'haus-of-crunch' ) );
+    if ( taxonomy_exists( 'product_cat' ) ) {
+        $categories = get_terms( array(
+            'taxonomy'   => 'product_cat',
+            'hide_empty' => false,
+        ) );
+        if ( ! is_wp_error( $categories ) && ! empty( $categories ) ) {
+            foreach ( $categories as $category ) {
+                $product_categories[ $category->term_id ] = $category->name;
+            }
+        }
+    }
+
+    // Column 1 Category Setting
+    $wp_customize->add_setting( 'hoc_category_highlights_column1_category', array(
+        'default'           => '',
+        'sanitize_callback' => 'absint',
+        'transport'         => 'refresh',
+    ) );
+
+    // Column 1 Category Control
+    $wp_customize->add_control( 'hoc_category_highlights_column1_category', array(
+        'label'    => __( 'Column 1: Category', 'haus-of-crunch' ),
+        'section'  => 'hoc_category_highlights',
+        'type'     => 'select',
+        'choices'  => $product_categories,
+        'priority' => 10,
+    ) );
+
+    // Column 1 Title Setting
+    $wp_customize->add_setting( 'hoc_category_highlights_column1_title', array(
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ) );
+
+    // Column 1 Title Control
+    $wp_customize->add_control( 'hoc_category_highlights_column1_title', array(
+        'label'    => __( 'Column 1: Text Title', 'haus-of-crunch' ),
+        'section'  => 'hoc_category_highlights',
+        'type'     => 'text',
+        'priority' => 20,
+    ) );
+
+    // Column 2 Category Setting
+    $wp_customize->add_setting( 'hoc_category_highlights_column2_category', array(
+        'default'           => '',
+        'sanitize_callback' => 'absint',
+        'transport'         => 'refresh',
+    ) );
+
+    // Column 2 Category Control
+    $wp_customize->add_control( 'hoc_category_highlights_column2_category', array(
+        'label'    => __( 'Column 2: Category', 'haus-of-crunch' ),
+        'section'  => 'hoc_category_highlights',
+        'type'     => 'select',
+        'choices'  => $product_categories,
+        'priority' => 30,
+    ) );
+
+    // Column 2 Title Setting
+    $wp_customize->add_setting( 'hoc_category_highlights_column2_title', array(
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ) );
+
+    // Column 2 Title Control
+    $wp_customize->add_control( 'hoc_category_highlights_column2_title', array(
+        'label'    => __( 'Column 2: Text Title', 'haus-of-crunch' ),
+        'section'  => 'hoc_category_highlights',
+        'type'     => 'text',
+        'priority' => 40,
+    ) );
+
+    // Add "Featured Products" section under Home Page panel
+    $wp_customize->add_section( 'hoc_featured_products', array(
+        'title'    => __( 'Featured Products', 'haus-of-crunch' ),
+        'panel'    => 'hoc_home_page',
+        'priority' => 30,
+    ) );
+
+    // Featured Products Title Setting
+    $wp_customize->add_setting( 'hoc_featured_products_title', array(
+        'default'           => 'Featured Products',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ) );
+
+    // Featured Products Title Control
+    $wp_customize->add_control( 'hoc_featured_products_title', array(
+        'label'       => __( 'Section Title', 'haus-of-crunch' ),
+        'section'     => 'hoc_featured_products',
+        'type'        => 'text',
+        'priority'    => 10,
+        'description' => __( 'Title displayed above the featured products grid', 'haus-of-crunch' ),
+    ) );
+
+    // Featured Products Limit Setting
+    $wp_customize->add_setting( 'hoc_featured_products_limit', array(
+        'default'           => 8,
+        'sanitize_callback' => 'absint',
+        'transport'         => 'refresh',
+    ) );
+
+    // Featured Products Limit Control
+    $wp_customize->add_control( 'hoc_featured_products_limit', array(
+        'label'       => __( 'Number of Products', 'haus-of-crunch' ),
+        'section'     => 'hoc_featured_products',
+        'type'        => 'number',
+        'priority'    => 20,
+        'input_attrs' => array(
+            'min'  => 1,
+            'max'  => 50,
+            'step' => 1,
+        ),
+        'description' => __( 'Number of featured products to display (max 50)', 'haus-of-crunch' ),
+    ) );
+}
+add_action( 'customize_register', 'hoc_customize_register' );

@@ -42,7 +42,7 @@
 .hoc-shop-layout {
   display: grid;
   grid-template-columns: 240px 1fr;
-  gap: 3rem;
+  gap: 8px;
   align-items: start;
 }
 
@@ -61,7 +61,7 @@
 @media (max-width: 640px) {
   .hoc-shop-layout {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 8px;
   }
 
   .hoc-shop-sidebar {
@@ -70,19 +70,19 @@
   }
 }
 
-/* Tablet: Smaller gap */
+/* Tablet: Filter panel matches one product column (3 columns in grid) */
 @media (min-width: 641px) and (max-width: 1023px) {
   .hoc-shop-layout {
-    grid-template-columns: 200px 1fr;
-    gap: 2rem;
+    grid-template-columns: calc((100% - 24px) / 4) 1fr;
+    gap: 8px;
   }
 }
 
-/* Desktop: Wider sidebar */
+/* Desktop: Filter panel matches one product column (3 columns in grid) */
 @media (min-width: 1024px) {
   .hoc-shop-layout {
-    grid-template-columns: 280px 1fr;
-    gap: 4rem;
+    grid-template-columns: calc((100% - 24px) / 4) 1fr;
+    gap: 8px;
   }
 }
 
